@@ -1,0 +1,20 @@
+{
+  "name": "github-actions-deploy",
+  "version": "1.0.0",
+  "description": "This project utilizes GitHub Actions to automate the deployment process whenever code is pushed to the main branch. The deployment workflow is defined in the `.github/workflows/deploy.yml` file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaoyiv4/github-actions-deploy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaoyiv4/github-actions-deploy/issues"
+  },
+  "homepage": "https://github.com/xiaoyiv4/github-actions-deploy#readme"
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>轻量博客</title>
+  <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
+  <link rel="stylesheet" href="2.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="site-title">轻量博客</h1>
+      <div class="site-sub">极简设置</div>
+    </div>
+    <div class="header-actions">
+      <input id="search" type="search" placeholder="搜索文章或内容..." />
+      <button id="newPostBtn">新建文章</button>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <aside class="sidebar">
+      <section class="widget">
+        <h4>统计</h4>
+        <div>文章数：<span id="postCount">0</span></div>
+        <div>最近更新：<span id="lastUpdated">—</span></div>
+      </section>
+
+      <section class="widget">
+        <h4>标签</h4>
+        <div id="tagsList" class="tags"></div>
+      </section>
+
+      <section class="widget">
+        <h4>近期文章</h4>
+        <div id="recentList" class="recent"></div>
+      </section>
+
+      <section class="widget small">
+        <h4>说明</h4>
+        <div class="muted">欢迎大家留言交流。</div>
+      </section>
+    </aside>
+
+    <section class="main-col">
+      <div class="featured" id="featured" aria-hidden="true"></div>
+
+      <section id="postsList" class="posts-list"></section>
+      <div id="pagination" class="pagination" aria-label="分页"></div>
+      <p id="emptyHint" class="hint">暂无文章，点击“新建文章”开始写作。</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>rzh</div>
+  </footer>
+
+  <script src="3.js"></script>
+</body>
+</html>
