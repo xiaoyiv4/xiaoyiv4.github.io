@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaoyiv4/github-actions-deploy.git"
+    "url": "git+https://github.com/xiaoyiv4/xiaoyiv4.github.io.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xiaoyiv4/github-actions-deploy/issues"
+    "url": "https://github.com/xiaoyiv4/xiaoyiv4.github.io/issues"
   },
-  "homepage": "https://github.com/xiaoyiv4/github-actions-deploy#readme"
+  "homepage": "https://github.com/xiaoyiv4/xiaoyiv4.github.io#readme"
 }
