@@ -2,60 +2,122 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>轻量博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <title>轻量博客 - 极简纯前端博客系统</title>
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
+  <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
   <link rel="stylesheet" href="styles/global.css" />
+  <!-- 预加载关键CSS -->
+  <link rel="preload" href="styles/global.css" as="style">
 </head>
 <body>
-  <header class="header">
+  <header class="header" role="banner">
     <div class="header-left">
-      <h1 class="site-title">轻量博客</h1>
-      <div class="site-sub">极简设置</div>
+      <h1 class="site-title">
+        <a href="/" aria-label="返回首页">轻量博客</a>
+      </h1>
+      <p class="site-sub">极简设置 · 专注写作</p>
     </div>
     <div class="header-actions">
-      <input id="search" type="search" placeholder="搜索文章或内容..." />
-      <button id="newPostBtn">新建文章</button>
+      <form role="search" aria-label="站点搜索">
+        <input 
+          id="search" 
+          type="search" 
+          placeholder="搜索文章或内容..." 
+          aria-label="搜索文章"
+          autocomplete="off"
+        />
+      </form>
+      <button 
+        id="newPostBtn" 
+        aria-label="新建文章"
+        title="创建新文章"
+      >
+        <span aria-hidden="true">+</span> 新建文章
+      </button>
     </div>
   </header>
 
-  <main class="container layout">
-    <aside class="sidebar">
-      <section class="widget">
-        <h4>统计</h4>
-        <div>文章数：<span id="postCount">0</span></div>
-        <div>最近更新：<span id="lastUpdated">—</span></div>
+  <main id="main-content" class="container layout" role="main">
+    <aside class="sidebar" aria-label="侧边栏">
+      <section class="widget" aria-labelledby="stats-heading">
+        <h4 id="stats-heading">统计</h4>
+        <dl class="stats-list">
+          <dt>文章数：</dt>
+          <dd><span id="postCount">0</span></dd>
+          <dt>最近更新：</dt>
+          <dd><span id="lastUpdated">—</span></dd>
+        </dl>
       </section>
 
-      <section class="widget">
-        <h4>标签</h4>
-        <div id="tagsList" class="tags"></div>
+      <section class="widget" aria-labelledby="tags-heading">
+        <h4 id="tags-heading">标签</h4>
+        <nav id="tagsList" class="tags" aria-label="文章标签"></nav>
       </section>
 
-      <section class="widget">
-        <h4>近期文章</h4>
-        <div id="recentList" class="recent"></div>
+      <section class="widget" aria-labelledby="recent-heading">
+        <h4 id="recent-heading">近期文章</h4>
+        <nav id="recentList" class="recent" aria-label="近期文章"></nav>
       </section>
 
-      <section class="widget small">
-        <h4>说明</h4>
-        <div class="muted">欢迎大家留言交流。</div>
+      <section class="widget small" aria-labelledby="about-heading">
+        <h4 id="about-heading">说明</h4>
+        <p class="muted">欢迎大家留言交流。数据存储在本地浏览器中。</p>
       </section>
     </aside>
 
-    <section class="main-col">
-      <div class="featured" id="featured" aria-hidden="true"></div>
+    <article class="main-col">
+      <section id="featured" class="featured" aria-hidden="true" hidden></section>
 
-      <section id="postsList" class="posts-list"></section>
-      <div id="pagination" class="pagination" aria-label="分页"></div>
-      <p id="emptyHint" class="hint">暂无文章，点击“新建文章”开始写作。</p>
-    </section>
+      <section aria-labelledby="posts-heading">
+        <h2 id="posts-heading" class="visually-hidden">文章列表</h2>
+        <div id="postsList" class="posts-list" role="list"></div>
+        <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
+        <p id="emptyHint" class="hint" role="status">
+          暂无文章，点击"新建文章"开始写作。
+        </p>
+      </section>
+    </article>
   </main>
 
-  <footer class="footer">
-    <div>rzh</div>
+  <footer class="footer" role="contentinfo">
+    <div>
+      <p>© 2023 轻量博客 · <a href="/privacy" aria-label="隐私政策">隐私政策</a></p>
+      <p class="muted">数据存储在本地浏览器中</p>
+    </div>
   </footer>
 
-  <script src="public/scripts/read.js"></script>
+  <!-- 异步加载JS -->
+  <script src="/public/scripts/read.js" defer></script>
+  
+  <!-- 数据初始化脚本 -->
+  <script>
+    // 初始化示例文章数据（仅在首次加载时执行）
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!localStorage.getItem('posts')) {
+        const samplePosts = [
+          {
+            id: 'post1',
+            title: '现代前端开发技术趋势',
+            summary: '探讨2023年最值得关注的前端开发技术和工具',
+            content: `## 现代前端开发技术趋势\n\n### 1. React 18 新特性\nReact 18 引入了并发渲染和自动批处理等新特性...`,
+            tags: ['前端', 'JavaScript', 'React'],
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          },
+          {
+            id: 'post2',
+            title: '日本京都旅行指南',
+            summary: '分享我在京都一周的深度旅行体验',
+            content: `## 日本京都旅行指南\n\n### 最佳旅行季节\n- 春季（3-4月）：樱花季...`,
+            tags: ['旅行', '日本', '京都'],
+            createdAt: new Date(Date.now() - 86400000).toISOString(), // 昨天
+            updatedAt: new Date().toISOString()
+          }
+        ];
+        localStorage.setItem('posts', JSON.stringify(samplePosts));
+      }
+    });
+  </script>
 </body>
 </html>

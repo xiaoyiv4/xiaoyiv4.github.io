@@ -6,13 +6,37 @@
   <title>文章阅读 - 轻量博客</title>
   <link rel="stylesheet" href="../styles/global.css" />
   <style>
-    /* 只读页局部样式，轻微覆盖 */
-    .read-container{ max-width:900px;margin:36px auto;padding:20px;background:rgba(255,255,255,0.88);border-radius:10px;backdrop-filter:blur(4px); }
-    .read-title{ margin:0 0 8px;font-size:22px; }
-    .read-meta{ color:var(--muted); font-size:13px; margin-bottom:14px; }
-    .read-tags{ margin-bottom:10px; }
-    .read-tags .tag{ margin-right:6px; cursor:pointer; }
-    .read-actions{ margin-top:18px; display:flex; gap:8px; justify-content:flex-end; }
+    /* 只读页局部样式 */
+    .read-container {
+      max-width: 900px;
+      margin: 36px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+    .read-title {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+    .read-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .read-tags {
+      margin-bottom: 10px;
+    }
+    .read-tags .tag {
+      margin-right: 6px;
+      cursor: pointer;
+    }
+    .read-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
   </style>
 </head>
 <body>
@@ -36,6 +60,7 @@
     </div>
   </main>
 
+  <!-- 只保留核心JS文件 -->
   <script src="scripts/read.js"></script>
 </body>
 </html>
