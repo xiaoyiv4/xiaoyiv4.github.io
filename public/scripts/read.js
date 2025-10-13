@@ -39,38 +39,59 @@ function simpleMarkdownToHTML(text) {
  * 渲染文章内容
  */
 function renderPost() {
+  console.log('---开始渲染---'); // 调试日志
+  
   const readRoot = document.getElementById('readRoot');
-  if (!readRoot) return; // 防止在非文章页执行
+  if (!readRoot) {
+    console.log('不在文章阅读页，跳过渲染');
+    return;
+  }
 
   try {
+    // 获取文章ID
     const postId = getUrlParam('id');
+    console.log('获取到的文章ID:', postId);
     if (!postId) throw new Error('缺少文章ID参数');
 
+    // 加载文章数据
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    console.log('本地文章数据:', posts);
     const post = posts.find(p => p.id === postId);
     if (!post) throw new Error('文章不存在');
+    console.log('匹配到的文章:', post);
+
+    // 检查DOM元素
+    const titleEl = document.getElementById('rTitle');
+    const metaEl = document.getElementById('rMeta');
+    const tagsEl = document.getElementById('rTags');
+    const contentEl = document.getElementById('rContent');
+    
+    if (!titleEl || !metaEl || !tagsEl || !contentEl) {
+      throw new Error('页面元素加载失败');
+    }
 
     // 渲染元数据
-    document.getElementById('rTitle').textContent = post.title;
+    titleEl.textContent = post.title;
     
     const metaText = `发表于 ${new Date(post.createdAt).toLocaleDateString()} • 最后更新 ${new Date(post.updatedAt).toLocaleDateString()}`;
-    document.getElementById('rMeta').textContent = metaText;
+    metaEl.textContent = metaText;
     
     // 渲染标签
-    const tagsContainer = document.getElementById('rTags');
-    tagsContainer.innerHTML = post.tags.map(tag => 
+    tagsEl.innerHTML = post.tags.map(tag => 
       `<span class="tag" data-tag="${tag}">#${tag}</span>`
     ).join(' ');
 
     // 渲染内容
-    document.getElementById('rContent').innerHTML = simpleMarkdownToHTML(post.content);
+    contentEl.innerHTML = simpleMarkdownToHTML(post.content);
 
     // 添加标签点击事件
-    tagsContainer.querySelectorAll('.tag').forEach(tag => {
+    tagsEl.querySelectorAll('.tag').forEach(tag => {
       tag.addEventListener('click', () => {
         window.location.href = `../index.html?tag=${tag.dataset.tag}`;
       });
     });
+
+    console.log('---渲染完成---');
 
   } catch (error) {
     console.error('渲染文章失败:', error);
@@ -82,27 +103,6 @@ function renderPost() {
     `;
   }
 }
-function renderPost() {
-  try {
-    const postId = getUrlParam('id');
-    if (!postId) throw new Error('URL中缺少文章ID');
-
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const post = posts.find(p => p.id === postId);
-    if (!post) throw new Error(`未找到ID为 ${postId} 的文章`);
-
-    // 渲染内容...
-  } catch (error) {
-    document.getElementById('readRoot').innerHTML = `
-      <div class="error">
-        <p>${error.message}</p>
-        <a href="/index.html">返回首页</a>
-      </div>
-    `;
-    console.error(error);
-  }
-}
-
 
 // 页面加载时执行
 document.addEventListener('DOMContentLoaded', renderPost);

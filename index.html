@@ -91,33 +91,69 @@
   <script src="/public/scripts/read.js" defer></script>
   
   <!-- 数据初始化脚本 -->
-  <script>
-    // 初始化示例文章数据（仅在首次加载时执行）
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!localStorage.getItem('posts')) {
-        const samplePosts = [
-          {
-            id: 'post1',
-            title: '现代前端开发技术趋势',
-            summary: '探讨2023年最值得关注的前端开发技术和工具',
-            content: `## 现代前端开发技术趋势\n\n### 1. React 18 新特性\nReact 18 引入了并发渲染和自动批处理等新特性...`,
-            tags: ['前端', 'JavaScript', 'React'],
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          },
-          {
-            id: 'post2',
-            title: '日本京都旅行指南',
-            summary: '分享我在京都一周的深度旅行体验',
-            content: `## 日本京都旅行指南\n\n### 最佳旅行季节\n- 春季（3-4月）：樱花季...`,
-            tags: ['旅行', '日本', '京都'],
-            createdAt: new Date(Date.now() - 86400000).toISOString(), // 昨天
-            updatedAt: new Date().toISOString()
-          }
-        ];
+ <script>
+  /**
+   * 博客数据初始化模块
+   * 功能：首次访问时自动生成示例文章数据
+   */
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. 检查是否已存在数据
+    if (!localStorage.getItem('posts')) {
+      console.log('初始化示例文章数据...');
+      
+      // 2. 创建示例文章数据
+      const samplePosts = [
+        {
+          id: 'post1',
+          title: '现代前端开发技术趋势',
+          summary: '探讨2023年最值得关注的前端开发技术和工具',
+          content: `## 现代前端开发技术趋势
+
+### 1. React 18 新特性
+- 并发渲染（Concurrent Rendering）
+- 自动批处理（Automatic Batching）
+- 新的 Suspense 特性
+
+### 2. Vue 3 生态发展
+- 组合式API的优势
+- Vite 构建工具普及
+- Pinia 状态管理方案`,
+          tags: ['前端', 'JavaScript', 'React'],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        },
+        {
+          id: 'post2',
+          title: '日本京都旅行指南',
+          summary: '分享我在京都一周的深度旅行体验',
+          content: `## 日本京都旅行指南
+
+### 最佳季节
+🌸 春季（3-4月）：樱花季
+🍁 秋季（10-11月）：红叶季
+
+### 必去景点
+1. 伏见稻荷大社
+2. 清水寺
+3. 岚山竹林`,
+          tags: ['旅行', '日本', '京都'],
+          createdAt: new Date(Date.now() - 86400000).toISOString(), // 昨天
+          updatedAt: new Date().toISOString()
+        }
+      ];
+
+      // 3. 存储到本地
+      try {
         localStorage.setItem('posts', JSON.stringify(samplePosts));
+        console.log('文章数据初始化完成');
+      } catch (e) {
+        console.error('存储失败:', e);
       }
-    });
-  </script>
+    } else {
+      console.log('已有文章数据，跳过初始化');
+    }
+  });
+</script>
+
 </body>
 </html>
