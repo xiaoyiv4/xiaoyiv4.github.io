@@ -82,6 +82,27 @@ function renderPost() {
     `;
   }
 }
+function renderPost() {
+  try {
+    const postId = getUrlParam('id');
+    if (!postId) throw new Error('URL中缺少文章ID');
+
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const post = posts.find(p => p.id === postId);
+    if (!post) throw new Error(`未找到ID为 ${postId} 的文章`);
+
+    // 渲染内容...
+  } catch (error) {
+    document.getElementById('readRoot').innerHTML = `
+      <div class="error">
+        <p>${error.message}</p>
+        <a href="/index.html">返回首页</a>
+      </div>
+    `;
+    console.error(error);
+  }
+}
+
 
 // 页面加载时执行
 document.addEventListener('DOMContentLoaded', renderPost);
