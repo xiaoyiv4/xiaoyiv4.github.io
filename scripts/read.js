@@ -76,20 +76,13 @@ function renderPost() {
     const metaText = `发表于 ${new Date(post.createdAt).toLocaleDateString()} • 最后更新 ${new Date(post.updatedAt).toLocaleDateString()}`;
     metaEl.textContent = metaText;
     
-    // 渲染标签
+    // 渲染标签（不再添加点击事件）
     tagsEl.innerHTML = post.tags.map(tag => 
-      `<span class="tag" data-tag="${tag}">#${tag}</span>`
+      `<span class="tag">#${tag}</span>`
     ).join(' ');
 
     // 渲染内容
     contentEl.innerHTML = simpleMarkdownToHTML(post.content);
-
-    // 添加标签点击事件
-    tagsEl.querySelectorAll('.tag').forEach(tag => {
-      tag.addEventListener('click', () => {
-        window.location.href = `../index.html?tag=${tag.dataset.tag}`;
-      });
-    });
 
     console.log('---渲染完成---');
 
