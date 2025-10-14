@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <title>JavaScript 编程基础 - 轻量博客</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <style>
+    /* 文章页面的局部样式 */
+    .post-container {
+      max-width: 800px;
+      margin: 36px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .post-title {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .post-tags {
+      margin-bottom: 10px;
+    }
+
+    .post-tags .tag {
+      background: rgba(241, 245, 251, 0.85);
+      border: 1px solid rgba(230, 238, 251, 0.8);
+      padding: 0.375rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .post-tags .tag:hover {
+      background: rgba(232, 240, 255, 0.95);
+    }
+
+    .post-content {
+      line-height: 1.6;
+    }
+
+    .post-content h2 {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+
+    .post-content h3 {
+      margin-top: 15px;
+      font-size: 20px;
+    }
+
+    .post-content h4 {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .post-content p {
+      margin-top: 10px;
+    }
+
+    .post-content ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .post-content li {
+      margin-top: 5px;
+    }
+
+    .post-content code {
+      background: rgba(0,0,0,0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    .post-content strong {
+      font-weight: bold;
+    }
+
+    .post-content em {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="/" aria-label="返回首页">轻量博客</a>
+      </h1>
+      <div class="site-sub">阅读模式（只读）</div>
+    </div>
+    <div class="header-actions">
+      <a href="index.html"><button class="btn">返回首页</button></a>
+    </div>
+  </header>
+
+  <main class="post-container">
+    <h2 class="post-title">JavaScript 编程基础</h2>
+    <div class="post-meta">
+      发表于 2023年10月3日 • 最后更新 2023年10月3日
+    </div>
+    <div class="post-tags">
+      <span class="tag">#JavaScript</span>
+      <span class="tag">#编程</span>
+      <span class="tag">#基础</span>
+    </div>
+    <article class="post-content">
+      <h2>1. JavaScript 简介</h2>
+      <p>JavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。</p>
+      
+      <h2>2. 基本语法</h2>
+      <p>以下是 JavaScript 的一些基本语法示例：</p>
+      <h3>2.1 变量</h3>
+      <p>使用 `var`、`let` 或 `const` 声明变量：</p>
+      <code>
+        <pre>
+let message = "Hello, World!";
+const number = 42;
+        </pre>
+      </code>
+      
+      <h3>2.2 数据类型</h3>
+      <p>JavaScript 支持多种数据类型，包括字符串、数字、布尔值等：</p>
+      <code>
+        <pre>
+let str = "字符串";
+let num = 123;
+let bool = true;
+        </pre>
+      </code>
+      
+      <h3>2.3 条件语句</h3>
+      <p>使用 `if`、`else if` 和 `else` 进行条件判断：</p>
+      <code>
+        <pre>
+if (num > 0) {
+  console.log("正数");
+} else if (num < 0) {
+  console.log("负数");
+} else {
+  console.log("零");
+}
+        </pre>
+      </code>
+      
+      <h3>2.4 循环</h3>
+      <p>使用 `for` 和 `while` 循环：</p>
+      <code>
+        <pre>
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+let j = 0;
+while (j < 5) {
+  console.log(j);
+  j++;
+}
+        </pre>
+      </code>
+      
+      <h3>2.5 函数</h3>
+      <p>定义和调用函数：</p>
+      <code>
+        <pre>
+function greet(name) {
+  return "Hello, " + name + "!";
+}
+
+console.log(greet("Alice"));
+        </pre>
+      </code>
+      
+      <h2>3. 对象</h2>
+      <p>JavaScript 中的对象是键值对的集合：</p>
+      <code>
+        <pre>
+let person = {
+  name: "Bob",
+  age: 30,
+  sayHello: function() {
+    console.log("Hello, my name is " + this.name);
+  }
+};
+
+person.sayHello();
+        </pre>
+      </code>
+      
+      <h2>4. 数组</h2>
+      <p>数组用于存储多个值：</p>
+      <code>
+        <pre>
+let fruits = ["苹果", "香蕉", "橙子"];
+console.log(fruits[0]); // 输出 "苹果"
+
+fruits.push("葡萄");
+console.log(fruits); // 输出 ["苹果", "香蕉", "橙子", "葡萄"]
+        </pre>
+      </code>
+      
+      <h2>5. DOM 操作</h2>
+      <p>通过 JavaScript 操作网页的 DOM 元素：</p>
+      <code>
+        <pre>
+let header = document.getElementById("header");
+header.style.color = "blue";
+
+let newElement = document.createElement("p");
+newElement.textContent = "这是一个新的段落";
+document.body.appendChild(newElement);
+        </pre>
+      </code>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <p>© 2023 轻量博客 · <a href="/privacy" aria-label="隐私政策">隐私政策</a></p>
+      <p class="muted">数据存储在本地浏览器中</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <title>现代前端开发技术趋势 - 轻量博客</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <style>
+    /* 文章页面的局部样式 */
+    .post-container {
+      max-width: 800px;
+      margin: 36px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .post-title {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .post-tags {
+      margin-bottom: 10px;
+    }
+
+    .post-tags .tag {
+      background: rgba(241, 245, 251, 0.85);
+      border: 1px solid rgba(230, 238, 251, 0.8);
+      padding: 0.375rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .post-tags .tag:hover {
+      background: rgba(232, 240, 255, 0.95);
+    }
+
+    .post-content {
+      line-height: 1.6;
+    }
+
+    .post-content h2 {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+
+    .post-content h3 {
+      margin-top: 15px;
+      font-size: 20px;
+    }
+
+    .post-content h4 {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .post-content p {
+      margin-top: 10px;
+    }
+
+    .post-content ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .post-content li {
+      margin-top: 5px;
+    }
+
+    .post-content code {
+      background: rgba(0,0,0,0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    .post-content strong {
+      font-weight: bold;
+    }
+
+    .post-content em {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="/" aria-label="返回首页">轻量博客</a>
+      </h1>
+      <div class="site-sub">阅读模式（只读）</div>
+    </div>
+    <div class="header-actions">
+      <a href="index.html"><button class="btn">返回首页</button></a>
+    </div>
+  </header>
+
+  <main class="post-container">
+    <h2 class="post-title">现代前端开发技术趋势</h2>
+    <div class="post-meta">
+      发表于 2023年10月1日 • 最后更新 2023年10月1日
+    </div>
+    <div class="post-tags">
+      <span class="tag">#前端</span>
+      <span class="tag">#JavaScript</span>
+      <span class="tag">#React</span>
+    </div>
+    <article class="post-content">
+      <h2>1. React 18 新特性</h2>
+      <ul>
+        <li>并发渲染（Concurrent Rendering）</li>
+        <li>自动批处理（Automatic Batching）</li>
+        <li>新的 Suspense 特性</li>
+      </ul>
+      <h2>2. Vue 3 生态发展</h2>
+      <ul>
+        <li>组合式API的优势</li>
+        <li>Vite 构建工具普及</li>
+        <li>Pinia 状态管理方案</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <p>© 2023 轻量博客 · <a href="/privacy" aria-label="隐私政策">隐私政策</a></p>
+      <p class="muted">数据存储在本地浏览器中</p>
+    </div>
+  </footer>
+</body>
+</html>

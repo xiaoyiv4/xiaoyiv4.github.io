@@ -28,13 +28,6 @@
           autocomplete="off"
         />
       </form>
-      <button 
-        id="newPostBtn" 
-        aria-label="新建文章"
-        title="创建新文章"
-      >
-        <span aria-hidden="true">+</span> 新建文章
-      </button>
     </div>
   </header>
 
@@ -44,20 +37,30 @@
         <h4 id="stats-heading">统计</h4>
         <dl class="stats-list">
           <dt>文章数：</dt>
-          <dd><span id="postCount">0</span></dd>
+          <dd><span id="postCount">3</span></dd>
           <dt>最近更新：</dt>
-          <dd><span id="lastUpdated">—</span></dd>
+          <dd><span id="lastUpdated">2023年10月3日</span></dd>
         </dl>
       </section>
 
       <section class="widget" aria-labelledby="tags-heading">
         <h4 id="tags-heading">标签</h4>
-        <nav id="tagsList" class="tags" aria-label="文章标签"></nav>
+        <nav id="tagsList" class="tags" aria-label="文章标签">
+          <span class="tag" data-tag="前端">#前端</span>
+          <span class="tag" data-tag="JavaScript">#JavaScript</span>
+          <span class="tag" data-tag="React">#React</span>
+          <span class="tag" data-tag="编程">#编程</span>
+          <span class="tag" data-tag="基础">#基础</span>
+        </nav>
       </section>
 
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
-        <nav id="recentList" class="recent" aria-label="近期文章"></nav>
+        <nav id="recentList" class="recent" aria-label="近期文章">
+          <a href="post.html" class="recent item">现代前端开发技术趋势</a>
+          <a href="post2.html" class="recent item">JavaScript 编程基础</a>
+          <a href="post3.html" class="recent item">深入理解CSS Grid</a>
+        </nav>
       </section>
 
       <section class="widget small" aria-labelledby="about-heading">
@@ -71,9 +74,25 @@
 
       <section aria-labelledby="posts-heading">
         <h2 id="posts-heading" class="visually-hidden">文章列表</h2>
-        <div id="postsList" class="posts-list" role="list"></div>
+        <div id="postsList" class="posts-list" role="list">
+          <a href="post.html" class="card">
+            <h3 class="card h3">现代前端开发技术趋势</h3>
+            <p class="card p">探讨2023年最值得关注的前端开发技术和工具</p>
+            <div class="meta">发表于 2023年10月1日 • 最后更新 2023年10月1日</div>
+          </a>
+          <a href="post2.html" class="card">
+            <h3 class="card h3">JavaScript 编程基础</h3>
+            <p class="card p">JavaScript 编程基础教程</p>
+            <div class="meta">发表于 2023年10月2日 • 最后更新 2023年10月2日</div>
+          </a>
+          <a href="post3.html" class="card">
+            <h3 class="card h3">深入理解CSS Grid</h3>
+            <p class="card p">CSS Grid 布局详解</p>
+            <div class="meta">发表于 2023年10月3日 • 最后更新 2023年10月3日</div>
+          </a>
+        </div>
         <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
-        <p id="emptyHint" class="hint" role="status">
+        <p id="emptyHint" class="hint" role="status" hidden>
           暂无文章，点击"新建文章"开始写作。
         </p>
       </section>
@@ -89,71 +108,5 @@
 
   <!-- 异步加载JS -->
   <script src="/public/scripts/read.js" defer></script>
-  
-  <!-- 数据初始化脚本 -->
- <script>
-  /**
-   * 博客数据初始化模块
-   * 功能：首次访问时自动生成示例文章数据
-   */
-  document.addEventListener('DOMContentLoaded', () => {
-    // 1. 检查是否已存在数据
-    if (!localStorage.getItem('posts')) {
-      console.log('初始化示例文章数据...');
-      
-      // 2. 创建示例文章数据
-      const samplePosts = [
-        {
-          id: 'post1',
-          title: '现代前端开发技术趋势',
-          summary: '探讨2023年最值得关注的前端开发技术和工具',
-          content: `## 现代前端开发技术趋势
-
-### 1. React 18 新特性
-- 并发渲染（Concurrent Rendering）
-- 自动批处理（Automatic Batching）
-- 新的 Suspense 特性
-
-### 2. Vue 3 生态发展
-- 组合式API的优势
-- Vite 构建工具普及
-- Pinia 状态管理方案`,
-          tags: ['前端', 'JavaScript', 'React'],
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        },
-        {
-          id: 'post2',
-          title: '日本京都旅行指南',
-          summary: '分享我在京都一周的深度旅行体验',
-          content: `## 日本京都旅行指南
-
-### 最佳季节
-🌸 春季（3-4月）：樱花季
-🍁 秋季（10-11月）：红叶季
-
-### 必去景点
-1. 伏见稻荷大社
-2. 清水寺
-3. 岚山竹林`,
-          tags: ['旅行', '日本', '京都'],
-          createdAt: new Date(Date.now() - 86400000).toISOString(), // 昨天
-          updatedAt: new Date().toISOString()
-        }
-      ];
-
-      // 3. 存储到本地
-      try {
-        localStorage.setItem('posts', JSON.stringify(samplePosts));
-        console.log('文章数据初始化完成');
-      } catch (e) {
-        console.error('存储失败:', e);
-      }
-    } else {
-      console.log('已有文章数据，跳过初始化');
-    }
-  });
-</script>
-
 </body>
 </html>
