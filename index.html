@@ -14,7 +14,7 @@
   <header class="header" role="banner">
     <div class="header-left">
       <h1 class="site-title">
-        <a href="/" aria-label="返回首页">轻量博客</a>
+        <a href="index.html" aria-label="返回首页">轻量博客</a>
       </h1>
       <p class="site-sub">极简设置 · 专注写作</p>
     </div>
@@ -46,26 +46,26 @@
       <section class="widget" aria-labelledby="tags-heading">
         <h4 id="tags-heading">标签</h4>
         <nav id="tagsList" class="tags" aria-label="文章标签">
-          <span class="tag" data-tag="前端">#前端</span>
-          <span class="tag" data-tag="JavaScript">#JavaScript</span>
-          <span class="tag" data-tag="React">#React</span>
-          <span class="tag" data-tag="编程">#编程</span>
-          <span class="tag" data-tag="基础">#基础</span>
+          <a href="tag-前端.html?tag=前端" class="tag-link">#前端</a>
+          <a href="tag-javascript.html?tag=JavaScript" class="tag-link">#JavaScript</a>
+          <a href="tag-react.html?tag=React" class="tag-link">#React</a>
+          <a href="tag-编程.html?tag=编程" class="tag-link">#编程</a>
+          <a href="tag-基础.html?tag=基础" class="tag-link">#基础</a>
         </nav>
       </section>
 
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
         <nav id="recentList" class="recent" aria-label="近期文章">
-          <a href="post.html" class="recent item">现代前端开发技术趋势</a>
-          <a href="post2.html" class="recent item">JavaScript 编程基础</a>
-          <a href="post3.html" class="recent item">深入理解CSS Grid</a>
+          <a href="post.html?id=1" class="recent item">现代前端开发技术趋势</a>
+          <a href="post2.html?id=2" class="recent item">JavaScript 编程基础</a>
+          <a href="post3.html?id=3" class="recent item">深入理解CSS Grid</a>
         </nav>
       </section>
 
       <section class="widget small" aria-labelledby="about-heading">
         <h4 id="about-heading">说明</h4>
-        <p class="muted">欢迎大家留言交流。数据存储在本地浏览器中。</p>
+        <p class="muted">欢迎大家浏览我的博客。</p>
       </section>
     </aside>
 
@@ -75,17 +75,17 @@
       <section aria-labelledby="posts-heading">
         <h2 id="posts-heading" class="visually-hidden">文章列表</h2>
         <div id="postsList" class="posts-list" role="list">
-          <a href="post.html" class="card">
+          <a href="post.html?id=1" class="card">
             <h3 class="card h3">现代前端开发技术趋势</h3>
             <p class="card p">探讨2023年最值得关注的前端开发技术和工具</p>
             <div class="meta">发表于 2023年10月1日 • 最后更新 2023年10月1日</div>
           </a>
-          <a href="post2.html" class="card">
+          <a href="post2.html?id=2" class="card">
             <h3 class="card h3">JavaScript 编程基础</h3>
             <p class="card p">JavaScript 编程基础教程</p>
             <div class="meta">发表于 2023年10月2日 • 最后更新 2023年10月2日</div>
           </a>
-          <a href="post3.html" class="card">
+          <a href="post3.html?id=3" class="card">
             <h3 class="card h3">深入理解CSS Grid</h3>
             <p class="card p">CSS Grid 布局详解</p>
             <div class="meta">发表于 2023年10月3日 • 最后更新 2023年10月3日</div>
@@ -101,12 +101,12 @@
 
   <footer class="footer" role="contentinfo">
     <div>
-      <p>© 2023 轻量博客 · <a href="/privacy" aria-label="隐私政策">隐私政策</a></p>
+      <p>© 2023 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></p>
       <p class="muted">数据存储在本地浏览器中</p>
     </div>
   </footer>
 
   <!-- 异步加载JS -->
-  <script src="/public/scripts/read.js" defer></script>
+  <script src="public/scripts/read.js" defer></script>
 </body>
 </html>
