@@ -76,10 +76,11 @@ function renderPost() {
     const metaText = `发表于 ${new Date(post.createdAt).toLocaleDateString()} • 最后更新 ${new Date(post.updatedAt).toLocaleDateString()}`;
     metaEl.textContent = metaText;
     
-    // 渲染标签（不再添加点击事件）
-    tagsEl.innerHTML = post.tags.map(tag => 
-      `<span class="tag">#${tag}</span>`
-    ).join(' ');
+// 渲染标签（修改为链接形式）
+tagsEl.innerHTML = post.tags.map(tag => 
+  `<a href="tag.html?tag=${encodeURIComponent(tag)}" class="tag-link">#${tag}</a>`
+).join(' ');
+
 
     // 渲染内容
     contentEl.innerHTML = simpleMarkdownToHTML(post.content);
