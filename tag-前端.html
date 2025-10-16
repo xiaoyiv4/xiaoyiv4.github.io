@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>前端相关文章 - 轻量博客</title>
+  <link rel="stylesheet" href="styles/global.css">
+  <style>
+    .tag-header {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .tag-posts {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="site-title"><a href="index.html">轻量博客</a></h1>
+      <div class="site-sub" id="tagTitle">标签文章</div>
+    </div>
+    <div class="header-actions">
+      <a href="index.html"><button class="btn">返回首页</button></a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tag-header">
+      <h2 id="currentTag">标签：加载中...</h2>
+    </div>
+    <div id="tagPostsList" class="tag-posts posts-list"></div>
+    <p id="emptyHint" class="hint" hidden>没有找到相关文章</p>
+  </main>
+
+  <script src="public/scripts/tag-前端.js"></script>
+</body>
+</html>
