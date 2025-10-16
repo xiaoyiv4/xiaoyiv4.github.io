@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <meta name="description" content="探索现代前端开发技术趋势，了解React 18、Vue 3等热门技术的最新动态。" />
   <title>现代前端开发技术趋势 - 轻量博客</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="styles/global.css" />
   <style>
     /* 文章页面的局部样式 */
+    :root {
+      --muted: #6c757d;
+    }
+
     .post-container {
       max-width: 800px;
       margin: 36px auto;
@@ -92,6 +98,34 @@
     .post-content em {
       font-style: italic;
     }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .post-container {
+        padding: 15px;
+        margin: 20px;
+      }
+
+      .post-title {
+        font-size: 22px;
+      }
+
+      .post-meta {
+        font-size: 12px;
+      }
+
+      .post-content h2 {
+        font-size: 20px;
+      }
+
+      .post-content h3 {
+        font-size: 18px;
+      }
+
+      .post-content h4 {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -133,6 +167,7 @@
     </article>
   </main>
 
+  
   <footer class="footer">
     <div>
       <p>© 2023 轻量博客 · <a href="/privacy" aria-label="隐私政策">隐私政策</a></p>

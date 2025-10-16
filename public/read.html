@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>文章阅读 - 轻量博客</title>
   <link rel="stylesheet" href="../styles/global.css" />
   <style>
@@ -15,30 +16,46 @@
       border-radius: 10px;
       backdrop-filter: blur(4px);
     }
+
     .read-title {
       margin: 0 0 8px;
       font-size: 22px;
     }
+
     .read-meta {
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 14px;
     }
+
     .read-tags {
       margin-bottom: 10px;
     }
+
     .read-tags .tag {
       margin-right: 6px;
       cursor: default; /* 修改为默认光标，表示不可点击 */
     }
+
     .read-actions {
       margin-top: 18px;
       display: flex;
       gap: 8px;
       justify-content: flex-end;
     }
+
+    .error {
+      text-align: center;
+      color: red;
+      padding: 20px;
+    }
+
+    .error button {
+      margin-top: 10px;
+    }
   </style>
 </head>
+
 <body>
   <header class="header">
     <div class="header-left">
@@ -63,4 +80,5 @@
   <!-- 只保留核心JS文件 -->
   <script src="../public/scripts/read.js"></script>
 </body>
+
 </html>
