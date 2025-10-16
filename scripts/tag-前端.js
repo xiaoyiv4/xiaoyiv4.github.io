@@ -43,16 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  
   // 渲染文章列表
-  articles.forEach(article => {
-    const card = document.createElement('a');
-    card.href = `post.html?id=${article.id}`;
-    card.className = 'card';
-    card.innerHTML = `
-      <h3 class="card h3">${article.title}</h3>
-      <p class="card p">${article.content.substring(0, 100)}...</p>
-      <div class="meta">${new Date(article.createdAt).toLocaleDateString()}</div>
-    `;
-    tagPostsList.appendChild(card);
-  });
+articles.forEach(article => {
+  const card = document.createElement('a');
+  // 动态生成链接，每篇文章有不同的 ID
+  card.href = `post.html?id=${article.id}`;
+  card.className = 'card';
+  card.innerHTML = `
+    <h3 class="card h3">${article.title}</h3>
+    <p class="card p">${article.content.substring(0, 100)}...</p>
+    <div class="meta">${new Date(article.createdAt).toLocaleDateString()}</div>
+  `;
+  tagPostsList.appendChild(card);
 });
+});
+

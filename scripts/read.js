@@ -10,8 +10,8 @@ function getUrlParam(name) {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
   } catch (e) {
-    console.error('解析URL参数失败:', e);
-    return null;
+    console.error(`解析URL参数失败: ${e.message}`);
+    return ''; // 返回空字符串而非 null
   }
 }
 
@@ -24,22 +24,52 @@ function simpleMarkdownToHTML(text) {
   if (!text) return '';
   
   return text
-    .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
-    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^\* (.*$)/gm, '<li>$1</li>')
-    .replace(/^(\d+)\. (.*$)/gm, '<li>$2</li>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/^#### (.*$)/gm, '<h4>\$1</h4>')
+    .replace(/^### (.*$)/gm, '<h3>\$1</h3>')
+    .replace(/^## (.*$)/gm, '<h2>\$1</h2>')
+    .replace(/^\* (.*$)/gm, '<ul><li>\$1</li></ul>')  // 包装无序列表
+    .replace(/^(\d+)\. (.*$)/gm, '<ol><li>\$2</li></ol>')  // 包装有序列表
+    .replace(/`([^`]+)`/g, '<code>\$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>\$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>\$1</em>')
     .replace(/\n/g, '<br>');
 }
 
 /**
+ * 渲染文章元数据
+ * @param {Object} post 文章对象
+ */
+function renderMeta(post) {
+  const metaEl = document.getElementById('rMeta');
+  const metaText = `发表于 ${new Date(post.createdAt).toLocaleDateString()} • 最后更新 ${new Date(post.updatedAt).toLocaleDateString()}`;
+  metaEl.textContent = metaText;
+}
+
+/**
+ * 渲染文章标签
+ * @param {Array} tags 标签数组
+ */
+function renderTags(tags) {
+  const tagsEl = document.getElementById('rTags');
+  tagsEl.innerHTML = tags.map(tag =>
+    `<span class="tag">#${tag}</span>`
+  ).join(' ');
+}
+
+/**
  * 渲染文章内容
+ * @param {string} content 文章内容
+ */
+function renderContent(content) {
+  const contentEl = document.getElementById('rContent');
+  contentEl.innerHTML = simpleMarkdownToHTML(content);
+}
+
+/**
+ * 渲染文章页面
  */
 function renderPost() {
-  console.log('---开始渲染---'); // 调试日志
+  console.log('---开始渲染---');
   
   const readRoot = document.getElementById('readRoot');
   if (!readRoot) {
@@ -48,47 +78,26 @@ function renderPost() {
   }
 
   try {
-    // 获取文章ID
     const postId = getUrlParam('id');
-    console.log('获取到的文章ID:', postId);
     if (!postId) throw new Error('缺少文章ID参数');
 
-    // 加载文章数据
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    console.log('本地文章数据:', posts);
     const post = posts.find(p => p.id === postId);
     if (!post) throw new Error('文章不存在');
-    console.log('匹配到的文章:', post);
 
-    // 检查DOM元素
     const titleEl = document.getElementById('rTitle');
-    const metaEl = document.getElementById('rMeta');
-    const tagsEl = document.getElementById('rTags');
-    const contentEl = document.getElementById('rContent');
-    
-    if (!titleEl || !metaEl || !tagsEl || !contentEl) {
-      throw new Error('页面元素加载失败');
-    }
-
-    // 渲染元数据
+    if (!titleEl) throw new Error('文章标题元素未找到');
     titleEl.textContent = post.title;
+
+    renderMeta(post);
+    renderTags(post.tags);
+    renderContent(post.content);
     
-    const metaText = `发表于 ${new Date(post.createdAt).toLocaleDateString()} • 最后更新 ${new Date(post.updatedAt).toLocaleDateString()}`;
-    metaEl.textContent = metaText;
-    
-// 渲染标签（修改为链接形式）
-tagsEl.innerHTML = post.tags.map(tag => 
-  `<a href="tag.html?tag=${encodeURIComponent(tag)}" class="tag-link">#${tag}</a>`
-).join(' ');
-
-
-    // 渲染内容
-    contentEl.innerHTML = simpleMarkdownToHTML(post.content);
-
     console.log('---渲染完成---');
 
   } catch (error) {
     console.error('渲染文章失败:', error);
+    const readRoot = document.getElementById('readRoot');
     readRoot.innerHTML = `
       <div class="error">
         <p>${error.message}</p>

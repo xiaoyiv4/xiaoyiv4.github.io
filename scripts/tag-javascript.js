@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 渲染文章列表
   articles.forEach(article => {
     const card = document.createElement('a');
-    card.href = `post.html?id=${article.id}`;
+    card.href = `post2.html?id=${article.id}`;
+    
     card.className = 'card';
     card.innerHTML = `
       <h3 class="card h3">${article.title}</h3>
