@@ -7,16 +7,15 @@
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
   <link rel="stylesheet" href="styles/global.css" />
-  <!-- 预加载关键CSS -->
-  <link rel="preload" href="styles/global.css" as="style">
 </head>
 <body>
+  <div class="bg"></div>
   <header class="header" role="banner">
     <div class="header-left">
       <h1 class="site-title">
         <a href="index.html" aria-label="返回首页">轻量博客</a>
       </h1>
-      <p class="site-sub">极简设置 · 专注写作</p>
+      <p>极简设置 · 专注写作</p>
     </div>
     <div class="header-actions">
       <form role="search" aria-label="站点搜索" method="get" action="search.html">
@@ -35,14 +34,17 @@
 
   <main id="main-content" class="container layout" role="main">
     <aside class="sidebar" aria-label="侧边栏">
+      <section class="widget" aria-labelledby="about-heading">
+        <h4 id="about-heading">说明</h4>
+        <p class="muted">欢迎大家浏览我的博客。</p>
+      </section>
+
       <section class="widget" aria-labelledby="stats-heading">
         <h4 id="stats-heading">统计</h4>
-        <dl class="stats-list">
-          <dt>文章数：</dt>
-          <dd><span id="postCount">3</span></dd>
-          <dt>最近更新：</dt>
-          <dd><span id="lastUpdated">2023年10月3日</span></dd>
-        </dl>
+        <div class="stats-list">
+          <p>文章数：<span id="postCount">3</span></p>
+          <p>最近更新：<span id="lastUpdated">2023年10月3日</span></p>
+        </div>
       </section>
 
       <section class="widget" aria-labelledby="tags-heading">
@@ -65,39 +67,34 @@
           <a href="post4.html?id=4" class="recent item">编程的含义</a>
         </nav>
       </section>
-
-      <section class="widget small" aria-labelledby="about-heading">
-        <h4 id="about-heading">说明</h4>
-        <p class="muted">欢迎大家浏览我的博客。</p>
-      </section>
     </aside>
 
     <article class="main-col">
       <section id="featured" class="featured" aria-hidden="true" hidden></section>
 
       <section aria-labelledby="posts-heading">
-        <h2 id="posts-heading" class="visually-hidden">文章列表</h2>
+        <h2 id="posts-heading">文章列表</h2>
         <div id="postsList" class="posts-list" role="list">
-          <a href="post.html?id=1" class="card">
-            <h3 class="card h3">现代前端开发技术趋势</h3>
-            <p class="card p">探讨2023年最值得关注的前端开发技术和工具</p>
+          <div class="card">
+            <span><a href="post.html?id=1">现代前端开发技术趋势</a></span>
+            <p>探讨2023年最值得关注的前端开发技术和工具</p>
             <div class="meta">发表于 2023年10月1日 • 最后更新 2023年10月1日</div>
-          </a>
-          <a href="post2.html?id=2" class="card">
-            <h3 class="card h3">JavaScript 编程基础</h3>
-            <p class="card p">JavaScript 编程基础教程</p>
+          </div>
+          <div class="card">
+            <span><a href="post2.html?id=2">JavaScript 编程基础</a></span>
+            <p>JavaScript 编程基础教程</p>
             <div class="meta">发表于 2023年10月2日 • 最后更新 2023年10月2日</div>
-          </a>
-          <a href="post3.html?id=3" class="card">
-            <h3 class="card h3">深入理解CSS Grid</h3>
-            <p class="card p">CSS Grid 布局详解</p>
+          </div>
+          <div class="card">
+            <span><a href="post3.html?id=3">深入理解CSS Grid</a></span>
+            <p>CSS Grid 布局详解</p>
             <div class="meta">发表于 2023年10月3日 • 最后更新 2023年10月3日</div>
-          </a>
-          <a href="post4.html?id=4" class="card">
-            <h3 class="card h3">编程的含义</h3>
-            <p class="card p">编程的意义与思考</p>
+          </div>
+          <div class="card">
+            <span><a href="post4.html?id=4">编程的含义</a></span>
+            <p>编程的意义与思考</p>
             <div class="meta">发表于 2023年10月4日 • 最后更新 2023年10月4日</div>
-          </a>
+          </div>
         </div>
         <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
         <p id="emptyHint" class="hint" role="status" hidden>
@@ -107,12 +104,7 @@
     </article>
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <div>
-      <p>© 2023 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></p>
-      <p class="muted">数据存储在本地浏览器中</p>
-    </div>
-  </footer>
+  <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></footer>
 
   <!-- 异步加载JS -->
   <script src="public/scripts/read.js" defer></script>
