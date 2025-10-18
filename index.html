@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
@@ -8,6 +9,7 @@
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
   <link rel="stylesheet" href="styles/global.css" />
 </head>
+
 <body>
   <div class="bg"></div>
   <header class="header" role="banner">
@@ -20,14 +22,7 @@
     <div class="header-actions">
       <form role="search" aria-label="站点搜索" method="get" action="search.html">
         <label for="search" class="visually-hidden">搜索文章</label>
-        <input 
-          id="search" 
-          type="search" 
-          name="query" 
-          placeholder="搜索文章或内容..." 
-          aria-label="搜索文章"
-          autocomplete="off"
-        />
+        <input id="search" type="search" name="query" placeholder="搜索文章或内容..." aria-label="搜索文章" autocomplete="off" />
       </form>
     </div>
   </header>
@@ -78,22 +73,22 @@
           <div class="card">
             <span><a href="post.html?id=1">现代前端开发技术趋势</a></span>
             <p>探讨2023年最值得关注的前端开发技术和工具</p>
-            <div class="meta">发表于 2023年10月1日 • 最后更新 2023年10月1日</div>
+            <div class="meta"><span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span></div>
           </div>
           <div class="card">
             <span><a href="post2.html?id=2">JavaScript 编程基础</a></span>
             <p>JavaScript 编程基础教程</p>
-            <div class="meta">发表于 2023年10月2日 • 最后更新 2023年10月2日</div>
+            <div class="meta"><span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span></div>
           </div>
           <div class="card">
             <span><a href="post3.html?id=3">深入理解CSS Grid</a></span>
             <p>CSS Grid 布局详解</p>
-            <div class="meta">发表于 2023年10月3日 • 最后更新 2023年10月3日</div>
+            <div class="meta"><span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span></div>
           </div>
           <div class="card">
             <span><a href="post4.html?id=4">编程的含义</a></span>
             <p>编程的意义与思考</p>
-            <div class="meta">发表于 2023年10月4日 • 最后更新 2023年10月4日</div>
+            <div class="meta"><span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span></div>
           </div>
         </div>
         <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
@@ -108,5 +103,58 @@
 
   <!-- 异步加载JS -->
   <script src="public/scripts/read.js" defer></script>
+  <script>
+    let history = window.history;
+    const postContainer = document.getElementById("postsList");
+    const mainContent = document.querySelector(".main-col");
+
+    postContainer.addEventListener("click", (e) => {
+      e.preventDefault();
+      const card = e.target.closest(".card");
+      if (!card) return;
+
+      const link = card.querySelector("a");
+      const postUrl = new URL(link.getAttribute("href"), window.location.origin).href;
+      loadPost(postUrl);
+    });
+
+    async function loadPost(url) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const result = await res.text();
+        const urlObj = new URL(url);
+        const id = urlObj.searchParams.get("id");
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(result, 'text/html');
+        // 更新内容
+        mainContent.innerHTML = result;
+        document.title = doc.querySelector('title').innerText;
+
+        // 更新历史记录
+        history.pushState({ postId: id, type: 'post' }, '', url);
+      } catch (error) {
+        console.error('加载文章失败:', error);
+        mainContent.innerHTML = `<p>加载失败: ${error.message}</p>`;
+      }
+    }
+
+    // 处理浏览器前进/后退
+    window.addEventListener('popstate', function (event) {
+      if (event.state && event.state.postId) {
+        // 重新加载对应文章
+        const url = new URL(window.location.href);
+        loadPost(url.href);
+      } else {
+        // 返回列表页时的处理
+        location.reload(); // 或者加载列表内容
+      }
+    });
+
+    // 初始加载时设置初始状态
+    history.replaceState({ type: 'list' }, '', window.location.href);
+  </script>
 </body>
+
 </html>
