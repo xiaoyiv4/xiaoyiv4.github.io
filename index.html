@@ -105,83 +105,92 @@
   <!-- 异步加载JS -->
   <script src="public/scripts/read.js" defer></script>
   <script>
-    (function () {
-      const postContainer = document.getElementById("postsList");
-      const mainContent = document.querySelector(".main-col");
-      const historyApi = window.history;
+  // 替换：更鲁棒的文章点击/加载逻辑
+  (function () {
+    const postContainer = document.getElementById("postsList");
+    const mainContent = document.querySelector(".main-col");
+    const historyApi = window.history;
 
-      if (!postContainer || !mainContent) return;
+    if (!postContainer || !mainContent) return;
 
-      postContainer.addEventListener("click", (e) => {
-        // 允许用户使用 Ctrl/Cmd/中键在新标签打开
-        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+    postContainer.addEventListener("click", (e) => {
+      // 允许用户使用 Ctrl/Cmd/中键在新标签打开
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
 
-        const anchor = e.target.closest("a");
-        if (!anchor) return;
+      const anchor = e.target.closest("a");
+      if (!anchor) return;
 
-        const href = anchor.getAttribute("href");
-        if (!href) return;
+      const href = anchor.getAttribute("href");
+      if (!href) return;
 
-        // 如果是 file:// 协议（本地直接打开文件），无法用 fetch 获取本地文件 -> 退回到正常导航
-        if (location.protocol === 'file:') {
-          window.location.href = href;
-          return;
-        }
-
-        // 拦截导航，异步加载文章
-        e.preventDefault();
-        const postUrl = new URL(href, window.location.origin).href;
-        loadPost(postUrl).catch(() => {
-          // 若发生任何错误，退回到页面跳转保证可访问性
-          window.location.href = href;
-        });
-      });
-
-      async function loadPost(url) {
-        try {
-          const res = await fetch(url, { credentials: 'same-origin' });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          const text = await res.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(text, 'text/html');
-
-          // 仅取目标页面的 <main> 或 article.post-container 内容以插入当前页面的 main 栏
-          const newMain = doc.querySelector('main') || doc.querySelector('.post-container') || doc.querySelector('.main-col');
-          if (newMain) {
-            mainContent.innerHTML = newMain.innerHTML;
-          } else {
-            mainContent.innerHTML = text;
-          }
-
-          // 更新标题（若存在）
-          const newTitle = doc.querySelector('title');
-          if (newTitle) document.title = newTitle.innerText;
-
-          // 更新历史记录（保留 id 参数）
-          historyApi.pushState({ type: 'post', url: url }, '', url);
-        } catch (err) {
-          console.error('加载文章失败:', err);
-          throw err;
-        }
+      // 如果是 file:// 协议（本地直接打开文件），无法用 fetch 获取本地文件 -> 退回到正常导航
+      if (location.protocol === 'file:') {
+        // 直接导航到链接（相对路径）
+        window.location.href = href;
+        return;
       }
 
-      // 处理前进/后退
-      window.addEventListener('popstate', function (event) {
-        if (event.state && event.state.type === 'post' && event.state.url) {
-          if (location.protocol === 'file:') {
-            window.location.href = event.state.url;
-            return;
-          }
-          loadPost(event.state.url).catch(() => { location.href = event.state.url; });
-        } else {
-          location.reload();
-        }
+      // 拦截导航，异步加载文章
+      e.preventDefault();
+      const postUrl = new URL(href, window.location.origin).href;
+      loadPost(postUrl).catch(() => {
+        // 若发生任何错误，退回到页面跳转保证可访问性
+        window.location.href = href;
       });
+    });
 
-      // 初始状态
-      historyApi.replaceState({ type: 'list' }, '', window.location.href);
-    })();
-  </script>
+    async function loadPost(url) {
+      try {
+        const res = await fetch(url, { credentials: 'same-origin' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const text = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+
+        // 仅取目标页面的 <main> 内容以插入当前页面的 main 栏
+        const newMain = doc.querySelector('main');
+        if (newMain) {
+          // 保留外层 main.col 结构，仅替换内部内容
+          mainContent.innerHTML = newMain.innerHTML;
+        } else {
+          // 若目标页面没有 main，退回显示完整文本（兜底）
+          mainContent.innerHTML = text;
+        }
+
+        // 更新标题（若存在）
+        const newTitle = doc.querySelector('title');
+        if (newTitle) document.title = newTitle.innerText;
+
+        // 更新历史记录（保留 id 参数）
+        const urlObj = new URL(url);
+        const id = urlObj.searchParams.get("id");
+        historyApi.pushState({ postId: id, type: 'post', url: url }, '', url);
+      } catch (err) {
+        console.error('加载文章失败:', err);
+        throw err; // 上层 catch 会处理回退
+      }
+    }
+
+    // 处理前进/后退
+    window.addEventListener('popstate', function (event) {
+      if (event.state && event.state.type === 'post' && event.state.url) {
+        // 重新加载对应文章（若为 file:// 则直接跳转）
+        if (location.protocol === 'file:') {
+          window.location.href = event.state.url;
+          return;
+        }
+        loadPost(event.state.url).catch(() => { location.href = event.state.url; });
+      } else {
+        // 返回列表页时直接刷新或在此处恢复列表视图
+        location.reload();
+      }
+    });
+
+    // 初始状态
+    historyApi.replaceState({ type: 'list' }, '', window.location.href);
+  })();
+</script>
 </body>
+
 </html>
