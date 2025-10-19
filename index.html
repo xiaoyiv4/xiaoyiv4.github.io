@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -9,6 +8,7 @@
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
   <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/article.css" />
 </head>
 
 <body>
@@ -21,7 +21,7 @@
       <p>极简设置 · 专注写作</p>
     </div>
     <div class="header-actions">
-      <h2>RZH</h2> 
+      <h2>RZH</h2>
     </div>
   </header>
 
@@ -43,21 +43,21 @@
       <section class="widget" aria-labelledby="tags-heading">
         <h4 id="tags-heading">标签</h4>
         <nav id="tagsList" class="tags" aria-label="文章标签">
-          <a href="tag-前端.html?tag=前端" class="tag-link">#前端</a>
-          <a href="tag-javascript.html?tag=JavaScript" class="tag-link">#JavaScript</a>
-          <a href="tag-react.html?tag=React" class="tag-link">#React</a>
-          <a href="tag-编程.html?tag=编程" class="tag-link">#编程</a>
-          <a href="tag-基础.html?tag=基础" class="tag-link">#基础</a>
+          <a href="tags/tag-前端.html?tag=前端" class="tag-link">#前端</a>
+          <a href="tags/tag-javascript.html?tag=JavaScript" class="tag-link">#JavaScript</a>
+          <a href="tags/tag-react.html?tag=React" class="tag-link">#React</a>
+          <a href="tags/tag-编程.html?tag=编程" class="tag-link">#编程</a>
+          <a href="tags/tag-基础.html?tag=基础" class="tag-link">#基础</a>
         </nav>
       </section>
 
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
         <nav id="recentList" class="recent" aria-label="近期文章">
-          <a href="post.html?id=1" class="recent item">现代前端开发技术趋势</a>
-          <a href="post2.html?id=2" class="recent item">JavaScript 编程基础</a>
-          <a href="post3.html?id=3" class="recent item">深入理解CSS Grid</a>
-          <a href="post4.html?id=4" class="recent item">编程的含义</a>
+          <a href="post/post.html" class="recent item">现代前端开发技术趋势</a>
+          <a href="post/post2.html" class="recent item">JavaScript 编程基础</a>
+          <a href="post/post3.html" class="recent item">深入理解CSS Grid</a>
+          <a href="post/post4.html" class="recent item">编程的含义</a>
         </nav>
       </section>
     </aside>
@@ -69,24 +69,32 @@
         <h2 id="posts-heading">文章列表</h2>
         <div id="postsList" class="posts-list" role="list">
           <div class="card">
-            <span><a href="post.html?id=1">现代前端开发技术趋势</a></span>
+            <span><a href="post.html">现代前端开发技术趋势</a></span>
             <p>探讨2023年最值得关注的前端开发技术和工具</p>
-            <div class="meta"><span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span></div>
+            <div class="meta">
+              <span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span>
+            </div>
           </div>
           <div class="card">
-            <span><a href="post2.html?id=2">JavaScript 编程基础</a></span>
+            <span><a href="post2.html">JavaScript 编程基础</a></span>
             <p>JavaScript 编程基础教程</p>
-            <div class="meta"><span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span></div>
+            <div class="meta">
+              <span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span>
+            </div>
           </div>
           <div class="card">
-            <span><a href="post3.html?id=3">深入理解CSS Grid</a></span>
+            <span><a href="post3.html">深入理解CSS Grid</a></span>
             <p>CSS Grid 布局详解</p>
-            <div class="meta"><span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span></div>
+            <div class="meta">
+              <span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span>
+            </div>
           </div>
           <div class="card">
-            <span><a href="post4.html?id=4">编程的含义</a></span>
+            <span><a href="post4.html">编程的含义</a></span>
             <p>编程的意义与思考</p>
-            <div class="meta"><span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span></div>
+            <div class="meta">
+              <span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span>
+            </div>
           </div>
         </div>
         <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
@@ -97,86 +105,81 @@
     </article>
   </main>
 
-  <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></footer>
+  <footer class="footer" role="contentinfo">
+    © 2025 轻量博客 ·
+    <a href="privacy.html" aria-label="隐私政策">隐私政策</a>
+  </footer>
 
+  <script>
+    (function () {
+      const postContainer = document.getElementById("postsList");
+      const mainContent = document.querySelector(".main-col");
+      const historyApi = window.history;
 
-<script>
-  (function () {
-    const postContainer = document.getElementById("postsList");
-    const mainContent = document.querySelector(".main-col");
-    const historyApi = window.history;
+      if (!postContainer || !mainContent) return;
 
-    if (!postContainer || !mainContent) return;
+      postContainer.addEventListener("click", (e) => {
+        // 允许用户使用 Ctrl/Cmd/中键在新标签打开
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
 
-    postContainer.addEventListener("click", (e) => {
-      // 允许用户使用 Ctrl/Cmd/中键在新标签打开
-      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+        const anchor = e.target.closest("a");
+        if (!anchor) return;
 
-      const anchor = e.target.closest("a");
-      if (!anchor) return;
+        const href = anchor.getAttribute("href");
+        if (!href) return;
 
-      // 默认：不拦截，让浏览器正常导航。
-      // 只有当链接上标记了 data-ajax="1" 时才使用 AJAX 加载并替换内容。
-      if (!anchor.dataset.ajax) return;
-
-      const href = anchor.getAttribute("href");
-      if (!href) return;
-
-      // file:// 环境下直接让浏览器导航（fetch 可能被限制）
-      if (location.protocol === 'file:') {
-        window.location.href = href;
-        return;
-      }
-
-      // 拦截并通过 AJAX 加载内容
-      e.preventDefault();
-      const postUrl = new URL(href, window.location.origin).href;
-      loadPost(postUrl).catch(() => {
-        window.location.href = href;
+        // 拦截并通过 AJAX 加载内容
+        e.preventDefault();
+        const postUrl = new URL("post/" + href, window.location.origin).href;
+        console.log(postUrl);
+        loadPost(postUrl).catch(() => {
+          window.location.href = href;
+        });
       });
-    });
 
-    async function loadPost(url) {
-      try {
-        const res = await fetch(url, { credentials: 'same-origin' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      async function loadPost(url) {
+        try {
+          const res = await fetch(url, { credentials: "same-origin" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const text = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
+          const text = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, "text/html");
 
-        const newMain = doc.querySelector('main') || doc.querySelector('.post-container') || doc.querySelector('.main-col');
-        if (newMain) {
-          mainContent.innerHTML = newMain.innerHTML;
+          const newMain = doc.querySelector("body");
+          if (newMain) {
+            mainContent.innerHTML = newMain.innerHTML;
+          } else {
+            mainContent.innerHTML = text;
+          }
+
+          const newTitle = doc.querySelector("title");
+          if (newTitle) document.title = newTitle.innerText;
+
+          historyApi.pushState({ type: "post", url: url }, "", url);
+        } catch (err) {
+          console.error("加载文章失败:", err);
+          throw err;
+        }
+      }
+
+      window.addEventListener("popstate", function (event) {
+        if (event.state && event.state.type === "post" && event.state.url) {
+          if (location.protocol === "file:") {
+            window.location.href = event.state.url;
+            return;
+          }
+          loadPost(event.state.url).catch(() => {
+            location.href = event.state.url;
+          });
         } else {
-          mainContent.innerHTML = text;
+          location.reload();
         }
+      });
 
-        const newTitle = doc.querySelector('title');
-        if (newTitle) document.title = newTitle.innerText;
-
-        historyApi.pushState({ type: 'post', url: url }, '', url);
-      } catch (err) {
-        console.error('加载文章失败:', err);
-        throw err;
-      }
-    }
-
-    window.addEventListener('popstate', function (event) {
-      if (event.state && event.state.type === 'post' && event.state.url) {
-        if (location.protocol === 'file:') {
-          window.location.href = event.state.url;
-          return;
-        }
-        loadPost(event.state.url).catch(() => { location.href = event.state.url; });
-      } else {
-        location.reload();
-      }
-    });
-
-    historyApi.replaceState({ type: 'list' }, '', window.location.href);
-  })();
-</script>
+      historyApi.replaceState({ type: "list" }, "", window.location.href);
+    })();
+  </script>
 </body>
 
 </html>
