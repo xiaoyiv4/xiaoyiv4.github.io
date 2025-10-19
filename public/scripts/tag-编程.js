@@ -1,70 +1,77 @@
+// ...existing code...
 document.addEventListener('DOMContentLoaded', () => {
-  // 获取 URL 参数并提取标签名称
   const urlParams = new URLSearchParams(window.location.search);
   const tagName = urlParams.get('tag');
-  // 获取页面上显示当前标签的元素
   const tagTitle = document.getElementById('currentTag');
-  // 获取页面上显示标签文章列表的元素
+  const headerTag = document.getElementById('tagTitle');
   const tagPostsList = document.getElementById('tagPostsList');
-  // 获取页面上显示空列表提示的元素
   const emptyHint = document.getElementById('emptyHint');
 
-  // 如果未指定标签，显示错误信息并隐藏文章列表，结束函数
+  if (!tagTitle || !tagPostsList || !emptyHint) {
+    console.warn('缺少必需的 DOM 元素：currentTag / tagPostsList / emptyHint');
+    return;
+  }
+
   if (!tagName) {
     tagTitle.textContent = '错误：未指定标签';
+    if (headerTag) headerTag.textContent = '标签文章';
     emptyHint.hidden = false;
     return;
   }
 
-  // 更新页面标题以显示当前标签
   tagTitle.textContent = `标签：${tagName}`;
+  if (headerTag) headerTag.textContent = `标签：${tagName}`;
   document.title = `${tagName} - 标签文章 | 轻量博客`;
 
-  // 如果标签不是“编程”，显示错误信息并隐藏文章列表，结束函数
   if (tagName !== '编程') {
     tagTitle.textContent = '错误：标签不匹配';
     emptyHint.hidden = false;
     return;
   }
 
-  // 静态文章数据（您可以根据需要添加更多文章）
+  // 将文章映射到存在的文件（按需调整）
   const articles = [
     {
-      id: "编程-article-1",
+      id: "1",
       title: "现代前端开发技术趋势",
-      content: "探讨2023年最值得关注的前端开发技术和工具...",
+      summary: "探讨2023年最值得关注的前端开发技术和工具",
+      url: "post.html?id=1",
       createdAt: "2023-10-01"
     },
     {
-      id: "编程-article-2",
+      id: "2",
       title: "JavaScript 编程基础",
-      content: "JavaScript 编程基础教程...",
+      summary: "JavaScript 编程基础教程",
+      url: "post2.html?id=2",
       createdAt: "2023-10-02"
     },
     {
-      id: "编程-article-3",
+      id: "4",
       title: "编程的含义",
-      content: "编程",
+      summary: "编程的意义与思考",
+      url: "post4.html?id=4",
       createdAt: "2023-10-04"
     }
   ];
 
-  // 如果没有文章，显示空列表提示并结束函数
-  if (articles.length === 0) {
+  if (!articles.length) {
     emptyHint.hidden = false;
     return;
   }
 
-  // 根据文章数据渲染文章列表
+  tagPostsList.innerHTML = '';
   articles.forEach(article => {
     const card = document.createElement('a');
-    card.href = `post.html?id=${article.id}`;
+    card.href = article.url;
     card.className = 'card';
+    card.setAttribute('role', 'listitem');
     card.innerHTML = `
-      <h3 class="card h3">${article.title}</h3>
-      <p class="card p">${article.content.substring(0, 100)}...</p>
+      <h3 class="card-title">${article.title}</h3>
+      <p class="card-excerpt">${(article.summary || '').substring(0, 120)}${(article.summary && article.summary.length > 120) ? '...' : ''}</p>
       <div class="meta">${new Date(article.createdAt).toLocaleDateString()}</div>
     `;
     tagPostsList.appendChild(card);
   });
+
+  emptyHint.hidden = true;
 });
