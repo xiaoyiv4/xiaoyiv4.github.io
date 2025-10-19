@@ -57,12 +57,6 @@ body {
   color: var(--muted);
 }
 
-.header-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
 .header-actions input {
   padding: 0.5rem 0.625rem;
   border: 1px solid var(--border-medium);
@@ -118,7 +112,6 @@ button.danger {
 
 .main-col {
   flex: 1;
-  min-width: 0;
 }
 
 /* 小工具样式 */
@@ -138,13 +131,13 @@ button.danger {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
   gap: 1rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .card {
   background: rgba(255, 255, 255, 0.82);
   border-radius: 0.5rem;
-  padding: 0.75rem;
+  padding: 1.2rem;
   box-shadow: 0 0.375rem 1.125rem rgba(11, 20, 40, 0.1);
   display: flex;
   flex-direction: column;
@@ -160,7 +153,8 @@ button.danger {
 
 .card a {
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
   background: linear-gradient(to right, rgb(112, 111, 111)) no-repeat;
   background-size: 0px 2px;
   background-position: right bottom;
@@ -169,19 +163,20 @@ button.danger {
 }
 
 .card a:hover {
-    background-size: 100% 2px;
-    background-position: left bottom;
+  background-size: 100% 2px;
+  background-position: left bottom;
 }
 
 .card p {
   color: var(--text-secondary);
   flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.9rem;
 }
 
 /* 其他组件 */
 .meta {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.75rem;
   color: #7b8796;
 }
@@ -265,33 +260,34 @@ button.danger {
   text-decoration: underline;
 }
 
-code {
-  background: rgba(0, 0, 0, 0.05);
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: monospace;
-}
-
 /* 响应式设计 */
-@media (max-width: 55rem) {
+@media (max-width: 798px) {
+  .header {
+    flex-direction: column;
+  }
+
   .layout {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
   }
-  
+
   .header-actions input {
     width: 10rem;
     max-width: 100%;
   }
-  
+
   .posts-list {
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
-  
+
   .featured {
     display: block;
+  }
+
+  .main-col {
+    margin-bottom: 1rem;
   }
 }
