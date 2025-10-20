@@ -8,6 +8,7 @@
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
   <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/post-list.css">
   <link rel="stylesheet" href="styles/article.css" />
 </head>
 
@@ -68,39 +69,8 @@
       <section aria-labelledby="posts-heading">
         <h2 id="posts-heading">文章列表</h2>
         <div id="postsList" class="posts-list" role="list">
-          <div class="card">
-            <span><a href="post.html">现代前端开发技术趋势</a></span>
-            <p>探讨2023年最值得关注的前端开发技术和工具</p>
-            <div class="meta">
-              <span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span>
-            </div>
-          </div>
-          <div class="card">
-            <span><a href="post2.html">JavaScript 编程基础</a></span>
-            <p>JavaScript 编程基础教程</p>
-            <div class="meta">
-              <span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span>
-            </div>
-          </div>
-          <div class="card">
-            <span><a href="post3.html">深入理解CSS Grid</a></span>
-            <p>CSS Grid 布局详解</p>
-            <div class="meta">
-              <span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span>
-            </div>
-          </div>
-          <div class="card">
-            <span><a href="post4.html">编程的含义</a></span>
-            <p>编程的意义与思考</p>
-            <div class="meta">
-              <span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span>
-            </div>
-          </div>
+          <!-- 文章卡片将通过 JavaScript 动态生成 -->
         </div>
-        <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
-        <p id="emptyHint" class="hint" role="status" hidden>
-          暂无文章，点击"新建文章"开始写作。
-        </p>
       </section>
     </article>
   </main>
@@ -109,8 +79,9 @@
     © 2025 轻量博客 ·
     <a href="privacy.html" aria-label="隐私政策">隐私政策</a>
   </footer>
+  <script src="scripts/renderList.js"></script>
 
-  <script>
+  <!-- <script>
     (function () {
       const postContainer = document.getElementById("postsList");
       const mainContent = document.querySelector(".main-col");
@@ -179,7 +150,7 @@
 
       historyApi.replaceState({ type: "list" }, "", window.location.href);
     })();
-  </script>
+  </script> -->
 </body>
 
 </html>
