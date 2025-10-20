@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -8,8 +7,8 @@
   <title>轻量博客 - 极简纯前端博客系统</title>
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
-  <link rel="stylesheet" href="styles/global.css" />
-  <link rel="stylesheet" href="styles/article.css" />
+  <link rel="stylesheet" href="src/styles/global.css" />
+  <link rel="stylesheet" href="src/styles/post-list.css">
 </head>
 
 <body>
@@ -22,7 +21,7 @@
       <p>极简设置 · 专注写作</p>
     </div>
     <div class="header-actions">
-      <h2>RZH</h2> 
+      <h2>RZH</h2>
     </div>
   </header>
 
@@ -44,21 +43,21 @@
       <section class="widget" aria-labelledby="tags-heading">
         <h4 id="tags-heading">标签</h4>
         <nav id="tagsList" class="tags" aria-label="文章标签">
-          <a href="tag-前端.html?tag=前端" class="tag-link">#前端</a>
-          <a href="tag-javascript.html?tag=JavaScript" class="tag-link">#JavaScript</a>
-          <a href="tag-react.html?tag=React" class="tag-link">#React</a>
-          <a href="tag-编程.html?tag=编程" class="tag-link">#编程</a>
-          <a href="tag-基础.html?tag=基础" class="tag-link">#基础</a>
+          <a href="tags/tag-前端.html?tag=前端" class="tag-link">#前端</a>
+          <a href="tags/tag-javascript.html?tag=JavaScript" class="tag-link">#JavaScript</a>
+          <a href="tags/tag-react.html?tag=React" class="tag-link">#React</a>
+          <a href="tags/tag-编程.html?tag=编程" class="tag-link">#编程</a>
+          <a href="tags/tag-基础.html?tag=基础" class="tag-link">#基础</a>
         </nav>
       </section>
 
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
         <nav id="recentList" class="recent" aria-label="近期文章">
-          <a href="post.html?id=1" class="recent item" data-ajax="true">现代前端开发技术趋势</a>
-          <a href="post2.html?id=2" class="recent item" data-ajax="true">JavaScript 编程基础</a>
-          <a href="post3.html?id=3" class="recent item" data-ajax="true">深入理解CSS Grid</a>
-          <a href="post4.html?id=4" class="recent item" data-ajax="true">编程的含义</a>
+          <a href="post/post.html" class="recent item">现代前端开发技术趋势</a>
+          <a href="post/post2.html" class="recent item">JavaScript 编程基础</a>
+          <a href="post/post3.html" class="recent item">深入理解CSS Grid</a>
+          <a href="post/post4.html" class="recent item">编程的含义</a>
         </nav>
       </section>
     </aside>
@@ -69,145 +68,17 @@
       <section aria-labelledby="posts-heading">
         <h2 id="posts-heading">文章列表</h2>
         <div id="postsList" class="posts-list" role="list">
-          <div class="card">
-            <span><a href="post.html?id=1">现代前端开发技术趋势</a></span>
-            <p>探讨2023年最值得关注的前端开发技术和工具</p>
-            <div class="meta"><span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span></div>
-          </div>
-          <div class="card">
-            <span><a href="post2.html?id=2">JavaScript 编程基础</a></span>
-            <p>JavaScript 编程基础教程</p>
-            <div class="meta"><span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span></div>
-          </div>
-          <div class="card">
-            <span><a href="post3.html?id=3">深入理解CSS Grid</a></span>
-            <p>CSS Grid 布局详解</p>
-            <div class="meta"><span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span></div>
-          </div>
-          <div class="card">
-            <span><a href="post4.html?id=4">编程的含义</a></span>
-            <p>编程的意义与思考</p>
-            <div class="meta"><span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span></div>
-          </div>
+          <!-- 文章卡片将通过 JavaScript 动态生成 -->
         </div>
-        <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
-        <p id="emptyHint" class="hint" role="status" hidden>
-          暂无文章，点击"新建文章"开始写作。
-        </p>
       </section>
     </article>
   </main>
 
-  <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></footer>
-
-
-
-
-<script>
-(function () {
-  const postsList = document.getElementById("postsList");
-  const recentNav = document.getElementById("recentList");
-  const mainContent = document.querySelector(".main-col");
-  const historyApi = window.history;
-
-  if (!mainContent) return;
-
-
-
-  // 全局点击拦截：只拦截带 data-ajax 的链接
-  document.addEventListener('click', (e) => {
-    if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
-    const anchor = e.target.closest('a[href]');
-    if (!anchor) return;
-    if (!anchor.dataset.ajax) return;
-    const href = anchor.getAttribute('href');
-    if (!href) return;
-    if (location.protocol === 'file:') {
-      // file:// 环境下直接导航以避免 fetch 限制
-      window.location.href = href;
-      return;
-    }
-    e.preventDefault();
-    const postUrl = new URL(href, window.location.href).href;
-    loadPost(postUrl).catch(() => { window.location.href = href; });
-  });
-
-  // 从抓取到的 doc 注入样式资源（使用被抓取页面 URL 作为 base）
-  function importStylesFromDoc(doc, baseUrl) {
-    Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).forEach(l => {
-      const href = l.getAttribute('href');
-      if (!href) return;
-      try {
-        const abs = new URL(href, baseUrl).href;
-        const exists = Array.from(document.styleSheets).some(s => s.href === abs);
-        if (!exists) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = abs;
-          document.head.appendChild(link);
-        }
-      } catch (err) {
-        console.warn('importStylesFromDoc: 无法解析 href', href, err);
-      }
-    });
-    // 复制内联 <style>
-    Array.from(doc.querySelectorAll('style')).forEach(s => {
-      const ns = document.createElement('style');
-      ns.textContent = s.textContent;
-      document.head.appendChild(ns);
-    });
-  }
-
-  // loadPost：fetch -> 解析 -> 注入样式 -> 导入节点 -> 更新 title/history
-  async function loadPost(url) {
-    try {
-      const res = await fetch(url, { credentials: 'same-origin' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
-
-      // 先注入样式（以被抓取页面 url 为 base）
-      importStylesFromDoc(doc, url);
-
-      // 尽量选取完整的文章外层容器
-      let newNode = doc.querySelector('main.post-container') ||
-                    doc.querySelector('.post-container') ||
-                    doc.querySelector('article') ||
-                    doc.querySelector('main');
-
-      if (newNode) {
-        const imported = document.importNode(newNode, true);
-        mainContent.innerHTML = '';
-        mainContent.appendChild(imported);
-      } else {
-        mainContent.innerHTML = doc.body ? doc.body.innerHTML : text;
-      }
-
-      const newTitleEl = doc.querySelector('title');
-      if (newTitleEl && newTitleEl.textContent) document.title = newTitleEl.textContent;
-
-      historyApi.pushState({ type: 'post', url }, '', url);
-    } catch (err) {
-      console.error('loadPost 错误：', err);
-      throw err;
-    }
-  }
-
-  window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.type === 'post' && event.state.url) {
-      if (location.protocol === 'file:') { window.location.href = event.state.url; return; }
-      loadPost(event.state.url).catch(() => { location.href = event.state.url; });
-    } else {
-      location.reload();
-    }
-  });
-
-  historyApi.replaceState({ type: 'list' }, '', window.location.href);
-})();
-</script>
-
-
+  <footer class="footer" role="contentinfo">
+    © 2025 轻量博客 ·
+    <a href="privacy.html" aria-label="隐私政策">隐私政策</a>
+  </footer>
+  <script src="src/js/main.js" type="module"></script>
 </body>
 
 </html>

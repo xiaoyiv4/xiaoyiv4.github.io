@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "post2",
+    "title": "JavaScript 编程基础",
+    "date": "2025-10-20",
+    "tags": [
+      "JavaScript",
+      "编程",
+      "基础"
+    ],
+    "excerpt": "## JavaScript 编程基础\n1. JavaScript 简介\nJavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。\n2. 基本语法\n以下是 JavaScript 的一些基本语法示例：\n2.1 变量\n使用 `var`、`let` 或 `const` 声明变量：\n```javascript\nlet message = \"Hello, World!\";\nconst nu...",
+    "description": "JavaScript 编程基础",
+    "cover": "",
+    "readTime": "2分钟"
+  },
+  {
+    "slug": "post3",
+    "title": "深入理解CSS Grid",
+    "date": "2023-10-03T00:00:00.000Z",
+    "tags": [
+      "CSS",
+      "前端",
+      "Grid"
+    ],
+    "excerpt": "CSS Grid布局是一个二维布局系统，专门为解决复杂网页布局而设计。\n### Grid容器和项目\n要使用Grid布局，首先需要将一个元素设置为Grid容器：\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 10px;\n}\n```\n### 网格线定位\n可以使用网格线来定位...",
+    "description": "本文深入探讨CSS Grid布局的基本概念和实用技巧，帮助前端开发者更好地掌握这一强大布局工具。",
+    "cover": "",
+    "readTime": "1分钟"
+  },
+  {
+    "slug": "post4",
+    "title": "编程的含义",
+    "date": "2023-10-03T00:00:00.000Z",
+    "tags": [
+      "编程",
+      "前端"
+    ],
+    "excerpt": "## 编程\n编程是与电脑对话的艺术，用严谨的逻辑下达指令，让机器为我们解决问题、创造价值。\n## 它不仅是技能，更是一种将抽象想法变为现实工具的能力。\n\n\n...",
+    "description": "探讨编程的本质及其在现代前端开发中的重要性。",
+    "cover": "",
+    "readTime": "1分钟"
+  },
+  {
+    "slug": "post",
+    "title": "现代前端开发技术趋势",
+    "date": "2023-10-01T00:00:00.000Z",
+    "tags": [
+      "前端",
+      "JavaScript",
+      "React"
+    ],
+    "excerpt": "## 现代前端开发技术趋势\n> 发表于 2023年10月1日 • 最后更新 2023年10月1日\n\n1. React 18 新特性\n- 并发渲染（Concurrent Rendering）\n- 自动批处理（Automatic Batching）\n- 新的 Suspense 特性\n\n2. Vue 3 生态发展    \n- 组合式API的优势\n- Vite 构建工具普及\n- Pinia 状态管理方案\n...",
+    "description": "探索现代前端开发技术趋势，了解React 18、Vue 3等热门技术的最新动态。",
+    "cover": "/images/bg.png",
+    "readTime": "1分钟"
+  }
+]

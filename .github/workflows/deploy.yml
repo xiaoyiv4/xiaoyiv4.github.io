@@ -17,15 +17,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Show repository root (debug)
-        run: ls -la
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'npm'
 
-      - name: Show public contents (debug)
-        run: ls -la ./public || echo "public not found"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build script
+        run: npm run build
+
+      - name: Show dist contents (debug)
+        run: ls -la ./dist || echo "dist not found"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./dist
           publish_branch: gh-pages
