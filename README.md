@@ -1,5 +1,5 @@
 ## 项目结构
-
+```tree
 project/
 ├── .github/                  # GitHub 自动化配置（适配团队协作）
 │   └── workflows/
@@ -23,3 +23,4 @@ project/
 │       ├── main.css          # 主样式
 │       └── post-list.css         # 文章列表样式
 └──
+```
