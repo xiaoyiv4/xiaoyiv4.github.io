@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
+  <!-- ...existing code... -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
   <title>轻量博客 - 极简纯前端博客系统</title>
@@ -16,29 +16,17 @@
   <div class="bg"></div>
   <header class="header" role="banner">
     <div class="header-left">
-      <h1 class="site-title">
-        <a href="index.html" aria-label="返回首页">轻量博客</a>
-      </h1>
-      <p>极简设置 · 专注写作</p>
+      <h1 class="site-title"><a href="index.html" aria-label="返回首页">轻量博客</a></h1>
+      <p class="muted">极简 · 专注写作</p>
     </div>
-    <div class="header-actions">
-      <h2>RZH</h2> 
-    </div>
+    
   </header>
 
   <main id="main-content" class="container layout" role="main">
     <aside class="sidebar" aria-label="侧边栏">
       <section class="widget" aria-labelledby="about-heading">
         <h4 id="about-heading">说明</h4>
-        <p class="muted">欢迎大家浏览我的博客。</p>
-      </section>
-
-      <section class="widget" aria-labelledby="stats-heading">
-        <h4 id="stats-heading">统计</h4>
-        <div class="stats-list">
-          <p>文章数：<span id="postCount">3</span></p>
-          <p>最近更新：<span id="lastUpdated">2023年10月3日</span></p>
-        </div>
+        <p class="muted">欢迎浏览我的博客。</p>
       </section>
 
       <section class="widget" aria-labelledby="tags-heading">
@@ -55,10 +43,10 @@
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
         <nav id="recentList" class="recent" aria-label="近期文章">
-          <a href="post.html?id=1" class="recent item">现代前端开发技术趋势</a>
-          <a href="post2.html?id=2" class="recent item">JavaScript 编程基础</a>
-          <a href="post3.html?id=3" class="recent item">深入理解CSS Grid</a>
-          <a href="post4.html?id=4" class="recent item">编程的含义</a>
+          <a href="post.html?id=1" class="recent item" data-ajax="1"> 现代前端开发技术趋势</a>
+          <a href="post2.html?id=2" class="recent item" data-ajax="1">JavaScript 编程基础</a>
+          <a href="post3.html?id=3" class="recent item" data-ajax="1">深入理解CSS Grid</a>
+          <a href="post4.html?id=4" class="recent item" data-ajax="1">编程的含义</a>
         </nav>
       </section>
     </aside>
@@ -72,98 +60,143 @@
           <div class="card">
             <span><a href="post.html?id=1">现代前端开发技术趋势</a></span>
             <p>探讨2023年最值得关注的前端开发技术和工具</p>
-            <div class="meta"><span>发表于 2023年10月1日</span><span>最后更新 2023年10月1日</span></div>
+            <div class="meta"><span>发表于 2023年10月1日</span></div>
           </div>
+
           <div class="card">
             <span><a href="post2.html?id=2">JavaScript 编程基础</a></span>
             <p>JavaScript 编程基础教程</p>
-            <div class="meta"><span>发表于 2023年10月2日</span><span>最后更新 2023年10月2日</span></div>
+            <div class="meta"><span>发表于 2023年10月2日</span></div>
           </div>
+
           <div class="card">
             <span><a href="post3.html?id=3">深入理解CSS Grid</a></span>
             <p>CSS Grid 布局详解</p>
-            <div class="meta"><span>发表于 2023年10月3日</span><span>最后更新 2023年10月3日</span></div>
+            <div class="meta"><span>发表于 2023年10月3日</span></div>
           </div>
+
           <div class="card">
             <span><a href="post4.html?id=4">编程的含义</a></span>
             <p>编程的意义与思考</p>
-            <div class="meta"><span>发表于 2023年10月4日</span><span>最后更新 2023年10月4日</span></div>
+            <div class="meta"><span>发表于 2023年10月3日</span></div>
           </div>
         </div>
-        <nav id="pagination" class="pagination" aria-label="分页导航"></nav>
-        <p id="emptyHint" class="hint" role="status" hidden>
-          暂无文章，点击"新建文章"开始写作。
-        </p>
       </section>
     </article>
   </main>
 
-  <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html" aria-label="隐私政策">隐私政策</a></footer>
+  <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html">隐私政策</a></footer>
 
-
-<script>
+  <!-- 脚本：仅拦截标记了 data-ajax 的同源链接，用 fetch 加载并保持样式 -->
+  <script>
   (function () {
-    const postContainer = document.getElementById("postsList");
+    const postsList = document.getElementById("postsList");
+    const recentNav = document.getElementById("recentList");
     const mainContent = document.querySelector(".main-col");
     const historyApi = window.history;
 
-    if (!postContainer || !mainContent) return;
+    if (!mainContent) return;
 
-    postContainer.addEventListener("click", (e) => {
-      // 允许用户使用 Ctrl/Cmd/中键在新标签打开
+    // 为主页的本地链接添加 data-ajax="1"（同源且为相对链接）
+    function markAjaxLinks() {
+      [postsList, recentNav].forEach(container => {
+        if (!container) return;
+        container.querySelectorAll('a[href]').forEach(a => {
+          try {
+            const href = a.getAttribute('href');
+            const url = new URL(href, window.location.href);
+            if (url.origin === window.location.origin) a.dataset.ajax = "1";
+          } catch (e) { /* 忽略 */ }
+        });
+      });
+    }
+    markAjaxLinks();
+
+    // 点击拦截：仅拦截带 data-ajax 的链接
+    document.addEventListener('click', (e) => {
       if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
-
-      const anchor = e.target.closest("a");
+      const anchor = e.target.closest('a[href]');
       if (!anchor) return;
-
-      // 默认：不拦截，让浏览器正常导航。
-      // 只有当链接上标记了 data-ajax="1" 时才使用 AJAX 加载并替换内容。
-      if (!anchor.dataset.ajax) return;
-
-      const href = anchor.getAttribute("href");
+      if (!anchor.dataset.ajax) return; // 未标记则不拦截
+      const href = anchor.getAttribute('href');
       if (!href) return;
 
-      // file:// 环境下直接让浏览器导航（fetch 可能被限制）
+      // file:// 环境下直接导航以避免 fetch 限制
       if (location.protocol === 'file:') {
         window.location.href = href;
         return;
       }
 
-      // 拦截并通过 AJAX 加载内容
       e.preventDefault();
-      const postUrl = new URL(href, window.location.origin).href;
-      loadPost(postUrl).catch(() => {
-        window.location.href = href;
-      });
+      const postUrl = new URL(href, window.location.href).href;
+      loadPost(postUrl).catch(() => { window.location.href = href; });
     });
 
+    // 将被抓取页面 head 中的 stylesheet/style 注入当前 document（使用 baseUrl 解析相对路径）
+    function importStylesFromDoc(doc, baseUrl) {
+      Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).forEach(l => {
+        const href = l.getAttribute('href');
+        if (!href) return;
+        try {
+          const abs = new URL(href, baseUrl).href;
+          const exists = Array.from(document.styleSheets).some(s => s.href === abs);
+          if (!exists) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = abs;
+            document.head.appendChild(link);
+          }
+        } catch (err) {
+          console.warn('importStylesFromDoc: 解析样式失败', href, err);
+        }
+      });
+      Array.from(doc.querySelectorAll('style')).forEach(s => {
+        const ns = document.createElement('style');
+        ns.textContent = s.textContent;
+        document.head.appendChild(ns);
+      });
+    }
+
+    // 主加载逻辑：fetch -> parse -> 注入样式 -> 导入完整外层节点 -> 更新 title/history
     async function loadPost(url) {
       try {
         const res = await fetch(url, { credentials: 'same-origin' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
         const text = await res.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
 
-        const newMain = doc.querySelector('main') || doc.querySelector('.post-container') || doc.querySelector('.main-col');
-        if (newMain) {
-          mainContent.innerHTML = newMain.innerHTML;
+        // 注入样式（先注入，确保样式在节点插入后生效）
+        importStylesFromDoc(doc, url);
+
+        // 优先取 main.post-container / .post-container / article / main（保留外层类）
+        let newNode = doc.querySelector('main.post-container') ||
+                      doc.querySelector('.post-container') ||
+                      doc.querySelector('article') ||
+                      doc.querySelector('main');
+
+        if (newNode) {
+          const imported = document.importNode(newNode, true);
+          mainContent.innerHTML = '';
+          mainContent.appendChild(imported);
         } else {
-          mainContent.innerHTML = text;
+          // 兜底：插入 body 内容
+          mainContent.innerHTML = doc.body ? doc.body.innerHTML : text;
         }
 
-        const newTitle = doc.querySelector('title');
-        if (newTitle) document.title = newTitle.innerText;
+        // 更新 title
+        const newTitleEl = doc.querySelector('title');
+        if (newTitleEl && newTitleEl.textContent) document.title = newTitleEl.textContent;
 
-        historyApi.pushState({ type: 'post', url: url }, '', url);
+        historyApi.pushState({ type: 'post', url }, '', url);
       } catch (err) {
-        console.error('加载文章失败:', err);
+        console.error('loadPost 错误：', err);
         throw err;
       }
     }
 
-    window.addEventListener('popstate', function (event) {
+    // popstate：处理前进/后退
+    window.addEventListener('popstate', (event) => {
       if (event.state && event.state.type === 'post' && event.state.url) {
         if (location.protocol === 'file:') {
           window.location.href = event.state.url;
@@ -177,7 +210,7 @@
 
     historyApi.replaceState({ type: 'list' }, '', window.location.href);
   })();
-</script>
+  </script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+// ...existing code...
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const tagName = urlParams.get('tag');
@@ -5,39 +6,82 @@ document.addEventListener('DOMContentLoaded', () => {
   const tagPostsList = document.getElementById('tagPostsList');
   const emptyHint = document.getElementById('emptyHint');
 
-  // 如果没有提供标签名称，显示错误信息
+  if (!tagTitle || !tagPostsList || !emptyHint) {
+    console.warn('tag 页面缺少必要元素');
+    return;
+  }
+
   if (!tagName) {
     tagTitle.textContent = '错误：未指定标签';
     emptyHint.hidden = false;
     return;
   }
 
-  // 更新页面标题和标签名
   tagTitle.textContent = `标签：${tagName}`;
   document.title = `${tagName} - 标签文章 | 轻量博客`;
 
-  // 从本地存储加载文章
-  const posts = JSON.parse(localStorage.getItem('posts')) || [];
-  const filteredPosts = posts.filter(post => 
-    post.tags && post.tags.includes(tagName)
-  );
+  // 从 localStorage 读取文章（兼容静态场景：若没有 localStorage，则可以扩展为 fetch JSON）
+  let posts = [];
+  try {
+    posts = JSON.parse(localStorage.getItem('posts') || '[]');
+  } catch (e) {
+    posts = [];
+  }
 
-  // 如果没有相关文章，显示提示信息
-  if (filteredPosts.length === 0) {
+  const filtered = posts.filter(p => Array.isArray(p.tags) && p.tags.includes(tagName));
+
+  // 如果没有本地文章，尝试用静态映射（映射到你的静态 post 文件）
+  const staticMap = {
+    '前端': [
+      { id: '1', title: '现代前端开发技术趋势', summary: '探讨2023年最值得关注的前端开发技术和工具', url: 'post.html?id=1', createdAt: '2023-10-01' },
+      { id: '3', title: '深入理解CSS Grid', summary: 'CSS Grid 布局详解', url: 'post3.html?id=3', createdAt: '2023-10-03' }
+    ],
+    'JavaScript': [
+      { id: '2', title: 'JavaScript 编程基础', summary: 'JavaScript 编程基础教程', url: 'post2.html?id=2', createdAt: '2023-10-02' },
+      { id: '1', title: '现代前端开发技术趋势', summary: '探讨前端技术', url: 'post.html?id=1', createdAt: '2023-10-01' }
+    ],
+    '编程': [
+      { id: '4', title: '编程的含义', summary: '编程的意义与思考', url: 'post4.html?id=4', createdAt: '2023-10-03' }
+    ],
+    '基础': [
+      { id: '2', title: 'JavaScript 编程基础', summary: 'JavaScript 编程基础教程', url: 'post2.html?id=2', createdAt: '2023-10-02' }
+    ]
+  };
+
+  const articles = filtered.length > 0 ? filtered : (staticMap[tagName] || []);
+
+  tagPostsList.innerHTML = ''; // 清空旧列表
+
+  if (!articles || articles.length === 0) {
     emptyHint.hidden = false;
     return;
   }
+  emptyHint.hidden = true;
 
-  // 渲染文章列表
-  filteredPosts.forEach(post => {
-    const card = document.createElement('a');
-    card.href = `post.html?id=${post.id}`;
-    card.className = 'card';
-    card.innerHTML = `
-      <h3 class="card h3">${post.title}</h3>
-      <p class="card p">${post.content.substring(0, 100)}...</p>
-      <div class="meta">${new Date(post.createdAt).toLocaleDateString()}</div>
-    `;
-    tagPostsList.appendChild(card);
+  articles.forEach(article => {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = article.url || (`post.html?id=${article.id}`);
+    a.dataset.ajax = "1"; // 标记为可被 AJAX 加载（若主页脚本使用 data-ajax）
+    // 内部使用语义化元素
+    const h = document.createElement('h3');
+    h.className = 'card-title';
+    h.textContent = article.title || '无标题';
+
+    const p = document.createElement('p');
+    p.className = 'card-excerpt';
+    p.textContent = article.summary ? article.summary.substring(0, 200) : '';
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const date = article.createdAt ? new Date(article.createdAt).toLocaleDateString() : '';
+    meta.textContent = date;
+
+    a.appendChild(h);
+    a.appendChild(p);
+    a.appendChild(meta);
+
+    tagPostsList.appendChild(a);
   });
 });
+// ...existing code...
