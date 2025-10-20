@@ -4,7 +4,7 @@ date: 2023-10-01
 lastmod: 2023-10-01
 tags: ["前端", "JavaScript", "React"]
 description: "探索现代前端开发技术趋势，了解React 18、Vue 3等热门技术的最新动态。"
-cover: public/images/bg.png
+cover: /images/bg.png
 ---
 ## 现代前端开发技术趋势
 > 发表于 2023年10月1日 • 最后更新 2023年10月1日

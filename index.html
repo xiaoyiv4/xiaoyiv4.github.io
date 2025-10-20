@@ -7,9 +7,8 @@
   <title>轻量博客 - 极简纯前端博客系统</title>
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
-  <link rel="stylesheet" href="styles/global.css" />
-  <link rel="stylesheet" href="styles/post-list.css">
-  <link rel="stylesheet" href="styles/article.css" />
+  <link rel="stylesheet" href="src/styles/global.css" />
+  <link rel="stylesheet" href="src/styles/post-list.css">
 </head>
 
 <body>
@@ -79,78 +78,7 @@
     © 2025 轻量博客 ·
     <a href="privacy.html" aria-label="隐私政策">隐私政策</a>
   </footer>
-  <script src="scripts/renderList.js"></script>
-
-  <!-- <script>
-    (function () {
-      const postContainer = document.getElementById("postsList");
-      const mainContent = document.querySelector(".main-col");
-      const historyApi = window.history;
-
-      if (!postContainer || !mainContent) return;
-
-      postContainer.addEventListener("click", (e) => {
-        // 允许用户使用 Ctrl/Cmd/中键在新标签打开
-        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
-
-        const anchor = e.target.closest("a");
-        if (!anchor) return;
-
-        const href = anchor.getAttribute("href");
-        if (!href) return;
-
-        // 拦截并通过 AJAX 加载内容
-        e.preventDefault();
-        const postUrl = new URL("post/" + href, window.location.origin).href;
-        console.log(postUrl);
-        loadPost(postUrl).catch(() => {
-          window.location.href = href;
-        });
-      });
-
-      async function loadPost(url) {
-        try {
-          const res = await fetch(url, { credentials: "same-origin" });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          const text = await res.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(text, "text/html");
-
-          const newMain = doc.querySelector("body");
-          if (newMain) {
-            mainContent.innerHTML = newMain.innerHTML;
-          } else {
-            mainContent.innerHTML = text;
-          }
-
-          const newTitle = doc.querySelector("title");
-          if (newTitle) document.title = newTitle.innerText;
-
-          historyApi.pushState({ type: "post", url: url }, "", url);
-        } catch (err) {
-          console.error("加载文章失败:", err);
-          throw err;
-        }
-      }
-
-      window.addEventListener("popstate", function (event) {
-        if (event.state && event.state.type === "post" && event.state.url) {
-          if (location.protocol === "file:") {
-            window.location.href = event.state.url;
-            return;
-          }
-          loadPost(event.state.url).catch(() => {
-            location.href = event.state.url;
-          });
-        } else {
-          location.reload();
-        }
-      });
-
-      historyApi.replaceState({ type: "list" }, "", window.location.href);
-    })();
-  </script> -->
+  <script src="src/js/main.js" type="module"></script>
 </body>
 
 </html>

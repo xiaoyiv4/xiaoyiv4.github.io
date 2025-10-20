@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const inputDir = "docs";
-const outputDir = "posts";
+const inputDir = path.join(__dirname, '..', 'docs');
+const outputDir = path.join(__dirname, '..', 'posts');
 
 // HTML 模板
 const htmlTemplate = (content, title = '文档') => `
@@ -79,7 +79,8 @@ function extractTitleFromFrontmatter(content) {
 }
 
 async function convertMdToHtml() {
-    const projectRoot = path.join(__dirname, '../..');
+    // 从脚本目录向上到项目根目录
+    const projectRoot = path.join(__dirname, '..');
     const docDir = path.join(projectRoot, inputDir);
     const postDir = path.join(projectRoot, outputDir);
 

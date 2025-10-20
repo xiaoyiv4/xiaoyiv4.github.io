@@ -51,7 +51,7 @@
     ],
     "excerpt": "## 现代前端开发技术趋势\n> 发表于 2023年10月1日 • 最后更新 2023年10月1日\n\n1. React 18 新特性\n- 并发渲染（Concurrent Rendering）\n- 自动批处理（Automatic Batching）\n- 新的 Suspense 特性\n\n2. Vue 3 生态发展    \n- 组合式API的优势\n- Vite 构建工具普及\n- Pinia 状态管理方案\n...",
     "description": "探索现代前端开发技术趋势，了解React 18、Vue 3等热门技术的最新动态。",
-    "cover": "public/images/bg.png",
+    "cover": "/images/bg.png",
     "readTime": "1分钟"
   }
 ]

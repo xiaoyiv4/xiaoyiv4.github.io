@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-    loadPosts();
-});
+export { loadPosts };
 
 async function loadPosts() {
     try {

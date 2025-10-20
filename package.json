@@ -1,6 +1,9 @@
 {
   "name": "github-actions-deploy",
   "version": "1.0.0",
+  "engines": {
+    "node": "22.14.0"
+  },
   "description": "This project utilizes GitHub Actions to automate the deployment process whenever code is pushed to the main branch. The deployment workflow is defined in the `.github/workflows/deploy.yml` file.",
   "keywords": [],
   "homepage": "https://github.com/xiaoyiv4/xiaoyiv4.github.io#readme",
@@ -16,10 +19,13 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "g": "node scripts/utils/generate-metadata.js && node scripts/utils/generate-post.js"
+    "dev": "vite",
+    "build": "node scripts/generate-metadata.js && node scripts/generate-post.js && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^16.4.1"
+    "marked": "^16.4.1",
+    "vite": "^7.1.11"
   }
 }

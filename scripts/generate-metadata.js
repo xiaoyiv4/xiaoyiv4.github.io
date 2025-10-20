@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 // 文章目录
 const postsDirectory = path.join(process.cwd(), 'docs');
 // 输出文件路径
-const outputFile = path.join(process.cwd(), 'articles-metadata.json');
+const outputFile = path.join(process.cwd(), '/public/articles-metadata.json');
 
 function getPosts() {
     // 读取post目录下的所有文件
