@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 
 <head>
-  <!-- ...existing code... -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
   <title>轻量博客 - 极简纯前端博客系统</title>
@@ -19,7 +18,6 @@
       <h1 class="site-title"><a href="index.html" aria-label="返回首页">轻量博客</a></h1>
       <p class="muted">极简 · 专注写作</p>
     </div>
-    
   </header>
 
   <main id="main-content" class="container layout" role="main">
@@ -43,7 +41,7 @@
       <section class="widget" aria-labelledby="recent-heading">
         <h4 id="recent-heading">近期文章</h4>
         <nav id="recentList" class="recent" aria-label="近期文章">
-          <a href="post.html?id=1" class="recent item" data-ajax="1"> 现代前端开发技术趋势</a>
+          <a href="post.html?id=1" class="recent item" data-ajax="1">现代前端开发技术趋势</a>
           <a href="post2.html?id=2" class="recent item" data-ajax="1">JavaScript 编程基础</a>
           <a href="post3.html?id=3" class="recent item" data-ajax="1">深入理解CSS Grid</a>
           <a href="post4.html?id=4" class="recent item" data-ajax="1">编程的含义</a>
@@ -78,7 +76,7 @@
           <div class="card">
             <span><a href="post4.html?id=4">编程的含义</a></span>
             <p>编程的意义与思考</p>
-            <div class="meta"><span>发表于 2023年10月3日</span></div>
+            <div class="meta"><span>发表于 2023年10月4日</span></div>
           </div>
         </div>
       </section>
@@ -87,7 +85,6 @@
 
   <footer class="footer" role="contentinfo">© 2025 轻量博客 · <a href="privacy.html">隐私政策</a></footer>
 
-  <!-- 脚本：仅拦截标记了 data-ajax 的同源链接，用 fetch 加载并保持样式 -->
   <script>
   (function () {
     const postsList = document.getElementById("postsList");
@@ -139,6 +136,7 @@
         if (!href) return;
         try {
           const abs = new URL(href, baseUrl).href;
+          console.log('正在导入样式:', abs); // 添加调试信息
           const exists = Array.from(document.styleSheets).some(s => s.href === abs);
           if (!exists) {
             const link = document.createElement('link');
