@@ -1,9 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import matter from 'gray-matter';
+
+// 获取当前文件的目录路径
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // 文章目录
-const postsDirectory = path.join(process.cwd(), 'post');
+const postsDirectory = path.join(process.cwd(), 'docs');
 // 输出文件路径
 const outputFile = path.join(process.cwd(), 'articles-metadata.json');
 

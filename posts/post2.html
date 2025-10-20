@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 编程基础</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        blockquote {
+            border-left: 4px solid #ddd;
+            margin-left: 0;
+            padding-left: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h2>JavaScript 编程基础</h2>
+<ol>
+<li>JavaScript 简介
+JavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。</li>
+<li>基本语法
+以下是 JavaScript 的一些基本语法示例：
+2.1 变量
+使用 <code>var</code>、<code>let</code> 或 <code>const</code> 声明变量：</li>
+</ol>
+<pre><code class="language-javascript">let message = &quot;Hello, World!&quot;;
+const number = 42;
+</code></pre>
+<p>2.2 数据类型
+JavaScript 支持多种数据类型，包括字符串、数字、布尔值等：</p>
+<pre><code class="language-javascript">let str = &quot;字符串&quot;;
+let num = 123;
+let bool = true;
+</code></pre>
+<p>2.3 条件语句
+使用 <code>if</code>、<code>else if</code> 和 <code>else</code> 进行条件判断：</p>
+<pre><code class="language-javascript">if (num &gt; 0) {
+  console.log(&quot;正数&quot;);
+} else if (num &lt; 0) {
+  console.log(&quot;负数&quot;);
+} else {
+  console.log(&quot;零&quot;);
+}
+</code></pre>
+<p>2.4 循环
+使用 <code>for</code> 和 <code>while</code> 循环：</p>
+<pre><code class="language-javascript">for (let i = 0; i &lt; 5; i++) {
+  console.log(i);
+}
+
+let j = 0;
+while (j &lt; 5) {
+  console.log(j);
+  j++;
+}
+</code></pre>
+<p>2.5 函数
+定义和调用函数：</p>
+<pre><code class="language-javascript">function greet(name) {
+  return &quot;Hello, &quot; + name + &quot;!&quot;;
+}
+
+console.log(greet(&quot;Alice&quot;));
+</code></pre>
+<ol start="3">
+<li>对象
+JavaScript 中的对象是键值对的集合：</li>
+</ol>
+<pre><code class="language-javascript">let person = {
+  name: &quot;Bob&quot;,
+  age: 30,
+  sayHello: function() {
+    console.log(&quot;Hello, my name is &quot; + this.name);
+  }
+};
+
+person.sayHello();
+</code></pre>
+<ol start="4">
+<li>数组 
+数组用于存储多个值：</li>
+</ol>
+<pre><code class="language-javascript">let fruits = [&quot;苹果&quot;, &quot;香蕉&quot;, &quot;橙子&quot;];
+console.log(fruits[0]); // 输出 &quot;苹果&quot;
+
+fruits.push(&quot;葡萄&quot;);
+console.log(fruits); // 输出 [&quot;苹果&quot;, &quot;香蕉&quot;, &quot;橙子&quot;, &quot;葡萄&quot;]
+</code></pre>
+<ol start="5">
+<li>DOM 操作
+通过 JavaScript 操作网页的 DOM 元素：</li>
+</ol>
+<pre><code class="language-javascript">let header = document.getElementById(&quot;header&quot;);
+header.style.color = &quot;blue&quot;;
+
+let newElement = document.createElement(&quot;p&quot;);
+newElement.textContent = &quot;这是一个新的段落&quot;;
+document.body.appendChild(newElement);
+</code></pre>
+
+</body>
+</html>

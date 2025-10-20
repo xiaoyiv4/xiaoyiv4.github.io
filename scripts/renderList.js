@@ -37,7 +37,7 @@ function renderPosts(articles) {
             ` : ''}
             <div class="card-content">
                 <span class="card-title">
-                    <a href="post/${article.slug}.md">${article.title}</a>
+                    <a href="posts/${article.slug}.html">${article.title}</a>
                 </span>
                 <p class="card-description">${getArticleDescription(article)}</p>
                 <div class="card-meta">

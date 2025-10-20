@@ -13,12 +13,13 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "g": "node scripts/generate-metadata.js"
+    "g": "node scripts/utils/generate-metadata.js && node scripts/utils/generate-post.js"
   },
   "devDependencies": {
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "marked": "^16.4.1"
   }
 }
