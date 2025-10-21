@@ -8,7 +8,7 @@
       "编程",
       "基础"
     ],
-    "excerpt": "## JavaScript 编程基础\n1. JavaScript 简介\nJavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。\n2. 基本语法\n以下是 JavaScript 的一些基本语法示例：\n2.1 变量\n使用 `var`、`let` 或 `const` 声明变量：\n```javascript\nlet message = \"Hello, World!\";\nconst nu...",
+    "excerpt": "1. JavaScript 简介\nJavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。\n1. 基本语法\n以下是 JavaScript 的一些基本语法示例：\n2.1 变量\n使用 `var`、`let` 或 `const` 声明变量：\n```javascript\nlet message = \"Hello, World!\";\nconst number = 42;\n```\n2.2 ...",
     "description": "JavaScript 编程基础",
     "cover": "",
     "readTime": "2分钟"
@@ -35,7 +35,7 @@
       "编程",
       "前端"
     ],
-    "excerpt": "## 编程\n编程是与电脑对话的艺术，用严谨的逻辑下达指令，让机器为我们解决问题、创造价值。\n## 它不仅是技能，更是一种将抽象想法变为现实工具的能力。\n\n\n...",
+    "excerpt": "编程是与电脑对话的艺术，用严谨的逻辑下达指令，让机器为我们解决问题、创造价值。\n## 它不仅是技能，更是一种将抽象想法变为现实工具的能力。\n\n\n...",
     "description": "探讨编程的本质及其在现代前端开发中的重要性。",
     "cover": "",
     "readTime": "1分钟"
@@ -49,7 +49,7 @@
       "JavaScript",
       "React"
     ],
-    "excerpt": "## 现代前端开发技术趋势\n> 发表于 2023年10月1日 • 最后更新 2023年10月1日\n\n1. React 18 新特性\n- 并发渲染（Concurrent Rendering）\n- 自动批处理（Automatic Batching）\n- 新的 Suspense 特性\n\n2. Vue 3 生态发展    \n- 组合式API的优势\n- Vite 构建工具普及\n- Pinia 状态管理方案\n...",
+    "excerpt": "> 发表于 2023年10月1日 • 最后更新 2023年10月1日\n\n1. React 18 新特性\n- 并发渲染（Concurrent Rendering）\n- 自动批处理（Automatic Batching）\n- 新的 Suspense 特性\n\n1. Vue 3 生态发展    \n- 组合式API的优势\n- Vite 构建工具普及\n- Pinia 状态管理方案\n...",
     "description": "探索现代前端开发技术趋势，了解React 18、Vue 3等热门技术的最新动态。",
     "cover": "/images/bg.png",
     "readTime": "1分钟"

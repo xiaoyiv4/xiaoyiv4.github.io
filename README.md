@@ -24,3 +24,16 @@ project/
 │       └── post-list.css         # 文章列表样式
 └──
 ```
+
+## 运行项目
+
+```bash
+# 安装依赖
+npm install
+# 启动开发服务器
+npm run dev
+# 构建生产版本
+npm run build
+# 预览生产版本
+npm run preview
+```

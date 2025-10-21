@@ -2,7 +2,10 @@ export { loadPosts };
 
 async function loadPosts() {
     try {
-        const response = await fetch('/articles-metadata.json');
+        const response = await fetch('./articles-metadata.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const articles = await response.json();
 
         renderPosts(articles);

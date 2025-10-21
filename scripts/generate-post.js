@@ -5,8 +5,22 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const docDir = path.join(__dirname, '../docs');
-const postDir = path.join(__dirname, '../public/posts');
+
+// 修复路径
+const projectRoot = path.join(__dirname, '..');
+const docDir = path.join(projectRoot, 'docs');
+const postDir = path.join(projectRoot, 'public/posts');
+
+console.log('项目根目录:', projectRoot);
+console.log('文档目录:', docDir);
+console.log('输出目录:', postDir);
+
+// 配置 marked 选项
+marked.setOptions({
+    gfm: true,
+    breaks: true,
+    sanitize: false
+});
 
 // HTML 模板
 const htmlTemplate = (content, title = '文档') => `
@@ -16,36 +30,13 @@ const htmlTemplate = (content, title = '文档') => `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${title}</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre {
-            background-color: #f8f8f8;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        blockquote {
-            border-left: 4px solid #ddd;
-            margin-left: 0;
-            padding-left: 20px;
-            color: #666;
-        }
-    </style>
+    <link rel="stylesheet" href="/article.css">
 </head>
 <body>
-    ${content}
+    <div class="article-container">
+        <h2>${title}</h2>
+        ${content}
+    </div>
 </body>
 </html>
 `;
@@ -79,59 +70,71 @@ function extractTitleFromFrontmatter(content) {
 }
 
 async function convertMdToHtml() {
-    // 从脚本目录向上到项目根目录
-    const projectRoot = path.join(__dirname, '..');
-
-    console.log('📁 文档目录:', docDir);
-    console.log('📁 输出目录:', postDir);
-
     try {
+        console.log('🔄 开始转换 Markdown 文件...');
+
+        // 确保目录存在
         await fs.mkdir(postDir, { recursive: true });
 
+        // 检查文档目录是否存在
+        try {
+            await fs.access(docDir);
+        } catch {
+            console.error(`❌ 文档目录不存在: ${docDir}`);
+            return;
+        }
+
         const files = await fs.readdir(docDir);
-        console.log(`📄 找到 ${files.length} 个文件:`, files);
+        const mdFiles = files.filter(file => path.extname(file).toLowerCase() === '.md');
+
+        console.log(`📄 找到 ${mdFiles.length} 个 Markdown 文件:`, mdFiles);
 
         let convertedCount = 0;
 
-        for (const file of files) {
-            if (path.extname(file).toLowerCase() === '.md') {
+        for (const file of mdFiles) {
+            try {
                 const mdPath = path.join(docDir, file);
                 const htmlPath = path.join(postDir, path.basename(file, '.md') + '.html');
 
                 console.log(`🔄 正在处理: ${file}`);
 
                 const mdContent = await fs.readFile(mdPath, 'utf-8');
+                console.log(`📝 文件内容长度: ${mdContent.length} 字符`);
 
-                // 提取标题（优先从 frontmatter 中获取）
-                let title = extractTitleFromFrontmatter(mdContent);
-                if (!title) {
-                    // 如果没有 frontmatter 标题，使用文件名
-                    title = path.basename(file, '.md');
-                }
+                let title = extractTitleFromFrontmatter(mdContent) || path.basename(file, '.md');
+                console.log(`📌 提取的标题: ${title}`);
 
-                // 移除 frontmatter
                 const contentWithoutFrontmatter = removeFrontmatter(mdContent);
+                console.log(`📄 移除 frontmatter 后内容长度: ${contentWithoutFrontmatter.length} 字符`);
 
-                // 转换为 HTML
-                const htmlContent = marked.parse(contentWithoutFrontmatter);
+                // 修复：使用 await 调用 marked.parse()
+                const htmlContent = await marked.parse(contentWithoutFrontmatter);
+                console.log(`🔄 转换后的 HTML 长度: ${htmlContent.length} 字符`);
 
-                // 使用模板包装 HTML
                 const fullHtml = htmlTemplate(htmlContent, title);
 
                 await fs.writeFile(htmlPath, fullHtml);
                 console.log(`✅ 转换完成: ${file} -> ${path.basename(htmlPath)}`);
                 convertedCount++;
+
+                // 输出前100个字符用于调试
+                // console.log(`🔍 HTML 预览: ${htmlContent.substring(0, 100)}...`);
+
+            } catch (error) {
+                console.error(`❌ 处理文件 ${file} 时出错:`, error);
             }
         }
 
         if (convertedCount === 0) {
-            console.log('ℹ️  没有找到 .md 文件，请在 doc 目录下添加 Markdown 文件');
+            console.log('ℹ️  没有找到 .md 文件，请在 docs 目录下添加 Markdown 文件');
         } else {
             console.log(`🎉 转换完成！共转换了 ${convertedCount} 个文件`);
         }
     } catch (error) {
-        console.error('❌ 转换出错:', error);
+        console.error('❌ 转换过程出错:', error);
+        process.exit(1);
     }
 }
 
+// 运行转换
 convertMdToHtml();

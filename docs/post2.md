@@ -6,10 +6,9 @@ tags: ["JavaScript", "编程", "基础"]
 description: JavaScript 编程基础
 cover: 
 ---
-## JavaScript 编程基础
 1. JavaScript 简介
 JavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。
-2. 基本语法
+1. 基本语法
 以下是 JavaScript 的一些基本语法示例：
 2.1 变量
 使用 `var`、`let` 或 `const` 声明变量：
