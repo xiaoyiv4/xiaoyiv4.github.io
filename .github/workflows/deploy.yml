@@ -38,3 +38,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
+          # Optional: Force push to ensure old files are cleaned up
+          force_orphan: true
+          # Optional: Custom commit message
+          commit_message: "Deploy from dev branch - ${{ github.sha }}"
