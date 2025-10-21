@@ -10,9 +10,9 @@ project/
 ├── articles-metadata.json    # 文章元数据文件
 ├── index.html
 ├── docs/                     # 文档目录
-├── posts/                    # 预渲染文章
 ├── public/                   # 静态资源优化：细分目录
 │   ├── favicon.ico
+│   ├── posts/                # 预渲染文章
 │   └── images/               # 图片单独归类
 ├── scripts/                  # 脚本目录优化：按功能细分脚本
 │   └── generate-posts.js     # 生成预渲染文章的脚本
