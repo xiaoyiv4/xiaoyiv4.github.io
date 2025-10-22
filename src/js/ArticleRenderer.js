@@ -33,37 +33,40 @@ export class ArticleRenderer {
 
     generateArticleHTML(article) {
         return `
-            <div class="card" role="listitem">
+            <article class="article-card" role="listitem">
                 ${article.cover ? this.generateCoverHTML(article) : ''}
-                <div class="card-content">
-                    <span class="card-title">
-                        <a href="posts/${article.slug}.html">${article.title}</a>
-                    </span>
-                    <p class="card-description">${this.getArticleDescription(article)}</p>
-                    <div class="card-meta">
-                        <span class="publish-date">发表于 ${this.formatDate(article.date)}</span>
+                <div class="article-content">
+                    <div class="article-title-wrapper">
+                        <h2 class="article-title">
+                            <a href="posts/${article.slug}.html">${article.title}</a>
+                        </h2>
                         <span class="read-time">${article.readTime || '阅读时间未知'}</span>
+                    </div>
+                    <p class="article-description">${this.getArticleDescription(article)}</p>
+                    <div class="article-meta">
+                        <span class="publish-date">发表于 ${this.formatDate(article.date)}</span>
+                        ${article.lastmod ? `<span class="update-date">更新于 ${this.formatDate(article.lastmod)}</span>` : ''}
                     </div>
                     ${article.tags && article.tags.length > 0 ? this.generateTagsHTML(article.tags) : ''}
                 </div>
-            </div>
+            </article>
         `;
     }
 
     generateCoverHTML(article) {
         return `
-            <div class="card-cover">
-                <img src="${article.cover}" alt="${article.title}" loading="lazy">
-            </div>
-        `;
+        <div class="article-cover">
+            <img src="${article.cover}" alt="${article.title}" loading="lazy">
+        </div>
+    `;
     }
 
     generateTagsHTML(tags) {
         return `
-            <div class="card-tags">
-                ${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
-        `;
+        <div class="tags">
+            ${tags.map(tag => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
+        </div>
+    `;
     }
 
     getArticleDescription(article) {

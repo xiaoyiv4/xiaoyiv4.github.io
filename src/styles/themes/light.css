@@ -1,0 +1,46 @@
+[data-theme="light"] {
+    /* ===== 基础颜色 ===== */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-code: #f1f5f9;
+    --bg-overlay: rgba(255, 255, 255, 0.9);
+    --bg-backdrop: rgba(15, 23, 42, 0.1);
+
+    /* ===== 文本颜色 ===== */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+    --text-inverse: #ffffff;
+    --text-code: #1e293b;
+    --text-link: #3b82f6;
+    --text-link-hover: #2563eb;
+
+    /* ===== 边框颜色 ===== */
+    --border-light: #e2e8f0;
+    --border-medium: #cbd5e1;
+    --border-strong: #94a3b8;
+    --border-focused: #3b82f6;
+
+    /* ===== 语义颜色 ===== */
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #06b6d4;
+
+    /* ===== 渐变 ===== */
+    --gradient-primary: linear-gradient(135deg, #3b82f6, #2563eb);
+    --gradient-subtle: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    --gradient-card: linear-gradient(135deg, #ffffff, #f8fafc);
+
+    /* ===== 阴影 ===== */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}

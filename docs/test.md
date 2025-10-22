@@ -1,7 +1,7 @@
 ---
 title: 测试文章
 date: 2025-10-21
-lastmod: 
+lastmod: 2025-10-22
 tags: ["测试", "文章"]
 description: "这是一个测试文章的描述。"
 cover: /images/cloud.png

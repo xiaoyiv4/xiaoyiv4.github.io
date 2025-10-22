@@ -48,7 +48,7 @@ export class UIManager {
 
         if (recentSection) {
             recentSection.innerHTML = latest.map(article => `
-                <a href="posts/${article.slug}.html" class="item">${article.title}</a>
+                <a href="posts/${article.slug}.html" class="recent-item">${article.title}</a>
             `).join('');
         }
     }
@@ -65,7 +65,7 @@ export class UIManager {
         }
 
         tagsListElement.innerHTML = allTags.map(tag => {
-            return `<button type="button" data-tag="${tag}" class="tag-link">#${tag}</button>`;
+            return `<button type="button" data-tag="${tag}" class="tag">#${tag}</button>`;
         }).join('');
     }
 
@@ -110,7 +110,7 @@ export class UIManager {
         if (tagsList) {
             tagsList.addEventListener('click', (event) => {
                 const target = event.target;
-                if (target.classList.contains('tag-link')) {
+                if (target.classList.contains('tag')) {
                     const tag = target.dataset.tag;
                     const tagArticles = this.articleManager.getArticlesByTag(tag);
                     this.articleManager.renderPosts(tagArticles);

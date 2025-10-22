@@ -33,11 +33,11 @@ class App {
             await this.articleManager.loadPosts();
             this.uiManager.initSearch();
             this.uiManager.initTagHandlers();
-            document.addEventListener('click', function (e) {
-                const card = e.target.closest('.card');
+            document.getElementById("postsList").addEventListener('click', function (e) {
+                const card = e.target.closest('.article-card');
                 if (card) {
-                    const link = card.querySelector('.card-title a');
-                    if (link && !e.target.closest('.card-meta') && !e.target.closest('.card-tags')) {
+                    const link = card.querySelector('.article-title a');
+                    if (link && !e.target.closest('.tags')) {
                         e.preventDefault();
                         window.location.href = link.href;
                     }

@@ -22,8 +22,10 @@ project/
 │   │   └── main.js           # 入口文件
 │   └── styles/               # 样式目录归属到 src，明确为“业务样式”
 │       ├── main.css          # 主样式
-│       └── post-list.css     # 文章列表样式
-└──
+│       ├── post-list.css     # 文章列表样式
+│       └── themes/                  # 主题样式
+│           ├── dark.css
+│           └── light.css
 ```
 ## 运行项目
 
