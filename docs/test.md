@@ -4,7 +4,7 @@ date: 2025-10-21
 lastmod: 
 tags: ["测试", "文章"]
 description: "这是一个测试文章的描述。"
-cover: https://webp.mingcy.cn/
+cover: /images/cloud.png
 ---
 这是测试文章的内容，用于验证文章生成和样式应用是否正确。
 > 这是一个引用块的示例，用于测试样式效果。

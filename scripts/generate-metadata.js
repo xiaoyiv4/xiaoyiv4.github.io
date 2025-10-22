@@ -41,6 +41,7 @@ function getPosts() {
                         slug,
                         title: data.title || slug,
                         date: data.date || new Date().toISOString().split('T')[0],
+                        lastmod: data.lastmod || data.date || new Date().toISOString().split('T')[0],
                         tags: data.tags || [],
                         excerpt: data.excerpt || excerpt || content.slice(0, 200) + '...',
                         description: data.description || '',

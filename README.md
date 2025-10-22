@@ -7,24 +7,24 @@ project/
 ├── .gitignore
 ├── package.json
 ├── vite.config.js
-├── articles-metadata.json    # 文章元数据文件
 ├── index.html
-├── docs/                     # 文档目录
+├── docs/                     # 源文章目录
 ├── public/                   # 静态资源优化：细分目录
 │   ├── favicon.ico
 │   ├── posts/                # 预渲染文章
-│   └── images/               # 图片单独归类
+│   ├── images/               # 图片单独归类
+│   └── articles-metadata.json    # 文章元数据文件
 ├── scripts/                  # 脚本目录优化：按功能细分脚本
+│   ├── generate-metadata.js  # 生成文章元数据的脚本
 │   └── generate-posts.js     # 生成预渲染文章的脚本
 ├── src/                      # 源代码目录（业务逻辑集中管理）
-│   ├── main.js               # 入口 JS
-│   ├── js                    # JS
+│   ├── js                    # JS 目录
+│   │   └── main.js           # 入口文件
 │   └── styles/               # 样式目录归属到 src，明确为“业务样式”
 │       ├── main.css          # 主样式
-│       └── post-list.css         # 文章列表样式
+│       └── post-list.css     # 文章列表样式
 └──
 ```
-
 ## 运行项目
 
 ```bash

@@ -4,7 +4,7 @@ date:
 lastmod: 
 tags: ["JavaScript", "编程", "基础"]
 description: JavaScript 编程基础
-cover: 
+cover: https://webp.mingcy.cn/
 ---
 1. JavaScript 简介
 JavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。
