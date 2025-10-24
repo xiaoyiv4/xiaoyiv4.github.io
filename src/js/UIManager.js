@@ -48,7 +48,7 @@ export class UIManager {
 
         if (recentSection) {
             recentSection.innerHTML = latest.map(article => `
-                <a href="posts/${article.slug}.html" class="recent-item">${article.title}</a>
+                <a href="./posts/${article.slug}.html" class="recent-item">${article.title}</a>
             `).join('');
         }
     }

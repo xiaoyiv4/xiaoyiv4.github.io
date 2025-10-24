@@ -4,4 +4,5 @@ dist/
 .vscode/
 .thumbs.db
 public/articles-metadata.json
+scripts/config/config.json
 public/posts/

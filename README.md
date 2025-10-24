@@ -1,32 +1,77 @@
 ## 项目结构
 ```tree
 project/
-├── .github/                  # GitHub 自动化配置（适配团队协作）
-│   └── workflows/
-│       └── deploy.yml        # 测试工作流（代码提交前自动测试）
-├── .gitignore
-├── package.json
-├── vite.config.js
+├── README.md
 ├── index.html
-├── docs/                     # 源文章目录
-├── public/                   # 静态资源优化：细分目录
-│   ├── favicon.ico
-│   ├── posts/                # 预渲染文章
-│   ├── images/               # 图片单独归类
-│   └── articles-metadata.json    # 文章元数据文件
-├── scripts/                  # 脚本目录优化：按功能细分脚本
-│   ├── generate-metadata.js  # 生成文章元数据的脚本
-│   └── generate-posts.js     # 生成预渲染文章的脚本
-├── src/                      # 源代码目录（业务逻辑集中管理）
-│   ├── js                    # JS 目录
-│   │   └── main.js           # 入口文件
-│   └── styles/               # 样式目录归属到 src，明确为“业务样式”
-│       ├── main.css          # 主样式
-│       ├── post-list.css     # 文章列表样式
-│       └── themes/                  # 主题样式
-│           ├── dark.css
-│           └── light.css
+├── package-lock.json
+├── package.json
+├── public
+│   ├── articles-metadata.json
+│   ├── images
+│   │   ├── bg.png
+│   │   └── default-cover.png
+│   └── posts
+├── scripts
+│   ├── config
+│   │   ├── config.json
+│   │   ├── config.yaml
+│   │   ├── configLoader.js
+│   │   ├── configManager.js
+│   │   ├── index.js
+│   │   ├── pathResolver.js
+│   │   └── validator.js
+│   ├── generators
+│   │   ├── index.js
+│   │   ├── metadata-generator.js
+│   │   └── post-generator.js
+│   ├── index.js
+│   ├── templates
+│   │   ├── article.html
+│   │   ├── index.js
+│   │   └── manager.js
+│   └── utils
+│       ├── ArticleUtils.js
+│       ├── debug-utils.js
+│       └── tree.js
+├── src
+│   ├── docs
+│   ├── js
+│   │   ├── ArticleManager.js
+│   │   ├── ArticleRenderer.js
+│   │   ├── ArticleUtils.js
+│   │   ├── EventBus.js
+│   │   ├── UIManager.js
+│   │   ├── article.js
+│   │   ├── config.js
+│   │   ├── main.js
+│   │   └── toggleTheme.js
+│   └── styles
+│       ├── components
+│       ├── main.css
+│       └── themes
+└── vite.config.js
 ```
+
+```javascript
+// 方式1: 使用主入口
+import { main } from './src/index.js';
+await main();
+
+// 方式2: 使用单独的生成器
+import { generateMetadata, generatePosts } from './src/generators/index.js';
+await generateMetadata();
+await generatePosts();
+
+// 方式3: 使用配置管理
+import { configLoader, getPaths } from './src/config/index.js';
+const config = await configLoader.load();
+const paths = await getPaths();
+
+// 方式4: 使用模板管理
+import { templateManager } from './src/templates/index.js';
+const html = await templateManager.render('article.html', data);
+```
+
 ## 运行项目
 
 ```bash
@@ -39,3 +84,8 @@ npm run build
 # 预览生产版本
 npm run preview
 ```
+
+
+## 待解决问题
+- **循环依赖**：
+html 生成需要 vite 构建的资源路径，vite 构建需要 html 生成的文件列表，存在循环依赖问题，需重构解决。

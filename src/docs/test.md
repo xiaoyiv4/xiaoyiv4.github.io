@@ -4,8 +4,12 @@ date: 2025-10-21
 lastmod: 2025-10-22
 tags: ["测试", "文章"]
 description: "这是一个测试文章的描述。"
-cover: /images/cloud.png
+cover: /images/default-cover.png
 ---
+# 这是测试文章的标题
+## 测试文章的子标题
+### 这是测试文章的三级标题
+
 这是测试文章的内容，用于验证文章生成和样式应用是否正确。
 > 这是一个引用块的示例，用于测试样式效果。
 
@@ -14,6 +18,9 @@ cover: /images/cloud.png
 - 列表项一
 - 列表项二
 - 列表项三
+
+图片
+![测试图片](/images/bg.png)
 
 代码块示例：
 ```javascript

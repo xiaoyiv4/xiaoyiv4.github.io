@@ -7,42 +7,30 @@
   <title>轻量博客 - 极简纯前端博客系统</title>
   <meta name="description" content="极简纯前端轻量博客示例（HTML/CSS/JS），支持搜索、标签、编辑与本地存储" />
   <meta name="keywords" content="博客,前端,HTML,CSS,JavaScript" />
+
   <link rel="stylesheet" href="src/styles/main.css" />
-  <link rel="stylesheet" href="src/styles/post-list.css">
-  <link rel="stylesheet" href="src/styles/sidebar.css">
+
+  <!-- 字体图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
   <div class="bg"></div>
-  <header class="header" role="banner">
-    <div class="header-left">
-      <h1 class="site-title">
-        <a href="index.html" aria-label="返回首页">轻量博客</a>
-      </h1>
-      <p>极简设置 · 专注写作</p>
-    </div>
-    <div class="header-actions">
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">轻量博客</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/">归档</a>
+        <a href="/">关于</a>
+      </div>
       <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
-        <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2">
-          <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" />
-          <path d="M12 1v2" />
-          <path d="M12 21v2" />
-          <path d="m4.22 4.22 1.42 1.42" />
-          <path d="m18.36 18.36 1.42 1.42" />
-          <path d="M1 12h2" />
-          <path d="M21 12h2" />
-          <path d="m4.22 19.78 1.42-1.42" />
-          <path d="m18.36 5.64 1.42-1.42" />
-        </svg>
-        <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
       </button>
-      <h2 class="username">RZH</h2>
     </div>
-  </header>
+  </nav>
 
   <main id="main-content" class="container" role="main">
     <aside class="sidebar" aria-label="侧边栏">
@@ -75,11 +63,34 @@
 
     <div id="postsList" class="posts-list" role="list">
       <!-- 文章卡片将通过 JavaScript 动态生成 -->
+      <div class="loading">正在加载文章...</div>
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo">© 2025 轻量博客</footer>
+  <button class="scroll-to-top-btn" onclick="scrollToTop()" title="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 由静态博客生成器构建</p>
+      <div class="footer-links">
+        <a href="/sitemap.xml">站点地图</a>
+        <a href="/feed.xml">RSS订阅</a>
+        <a href="https://github.com/xiaoyiv4.github.io" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
   <script src="src/js/main.js" type="module" defer></script>
+  <script>
+    // 返回顶部
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
 
 </html>

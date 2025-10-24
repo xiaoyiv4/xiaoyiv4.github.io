@@ -1,0 +1,55 @@
+site:
+  title: "轻量博客"                    # 网站标题
+  description: "欢迎来到我的博客"       # 网站描述
+  author: "xiaoyiv4"                  # 作者名称
+  language: "zh-CN"                   # 语言设置
+  defaultCover:    # 默认封面图，位于 public/images 目录下
+
+paths:
+  docDir: "./src/docs"                    # 源 Markdown 文件目录
+  postDir: "./public/posts"                   # 生成的 HTML 文章目录
+  metadataFile: "./public/articles-metadata.json"   # 元数据文件路径
+  templateDir: "./scripts/templates"  # 模板文件目录
+  dist: "./dist"                      # 输出目录
+  logs: "./logs"                      # 日志目录
+
+# Markdown-It 配置
+markdownConfig:
+  options:
+    html: true
+    breaks: true
+    linkify: true
+    typographer: true
+  plugins:
+    anchor:
+      permalink: true
+      permalinkClass: "header-anchor"
+      permalinkSymbol: "#"
+      permalinkBefore: true
+    toc:
+      listType: "ul"
+      containerClass: "table-of-contents"
+    highlightjs:
+      auto: true
+      code: true
+
+# 模板配置
+templateConfig:
+  defaultTemplate: "article.html"
+  templateData:
+    showToc: true
+    highlightjs:
+      enabled: true
+      theme: "github"
+
+# 文件处理配置
+fileConfig:
+  supportedExtensions: [".md"]
+  outputExtension: ".html"
+  encoding: "utf-8"
+
+# 日志配置
+logConfig:
+  enabled: true
+  level: "info"
+  colors: true

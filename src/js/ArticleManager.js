@@ -1,4 +1,5 @@
 import { ArticleRenderer } from './ArticleRenderer.js';
+import { ArticleUtils } from './ArticleUtils.js';
 
 export default class ArticleManager {
     constructor(eventBus, config) {
@@ -26,11 +27,12 @@ export default class ArticleManager {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            this.articles = await response.json();
+            const data = await response.json();
+            // 从返回的数据中提取 posts 数组
+            this.articles = data.posts || [];
             this.isLoaded = true;
 
             this.eventBus.emit('articles:loaded', this.articles);
-
             return this.articles;
         } catch (error) {
             console.error('加载文章数据失败:', error);
@@ -48,60 +50,39 @@ export default class ArticleManager {
         return [...this.articles];
     }
 
-    getArticleById(id) {
-        this.ensureLoaded();
-        return this.articles.find(article => article.id === id);
-    }
-
     getArticleBySlug(slug) {
         this.ensureLoaded();
-        return this.articles.find(article => article.slug === slug);
+        return ArticleUtils.getArticleBySlug(this.articles, slug);
     }
 
     getArticlesByCategory(category) {
         this.ensureLoaded();
-        return this.articles.filter(article => article.category === category);
+        return ArticleUtils.getArticlesByCategory(this.articles, category);
     }
 
     getArticlesByTag(tag) {
         this.ensureLoaded();
-        return this.articles.filter(article =>
-            article.tags && article.tags.includes(tag)
-        );
+        return ArticleUtils.getArticlesByTag(this.articles, tag);
     }
 
     searchArticles(keyword) {
         this.ensureLoaded();
-        const lowerKeyword = keyword.toLowerCase();
-        return this.articles.filter(article =>
-            article.title.toLowerCase().includes(lowerKeyword) ||
-            (article.description && article.description.toLowerCase().includes(lowerKeyword)) ||
-            (article.excerpt && article.excerpt.toLowerCase().includes(lowerKeyword)) ||
-            (article.tags && article.tags.some(tag => tag.toLowerCase().includes(lowerKeyword)))
-        );
+        return ArticleUtils.searchArticles(this.articles, keyword);
     }
 
     getAllCategories() {
         this.ensureLoaded();
-        const categories = this.articles
-            .map(article => article.category)
-            .filter(Boolean);
-        return [...new Set(categories)];
+        return ArticleUtils.getAllCategories(this.articles);
     }
 
     getAllTags() {
         this.ensureLoaded();
-        const allTags = this.articles
-            .filter(article => article.tags)
-            .flatMap(article => article.tags);
-        return [...new Set(allTags)];
+        return ArticleUtils.getAllTags(this.articles);
     }
 
     getLatestArticles(count = this.config.defaults.latestArticlesCount) {
         this.ensureLoaded();
-        return this.articles
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, count);
+        return ArticleUtils.getLatestArticles(this.articles, count);
     }
 
     getFeaturedArticles() {

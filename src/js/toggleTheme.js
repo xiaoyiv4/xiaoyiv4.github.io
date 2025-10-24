@@ -24,6 +24,19 @@ export class ThemeToggle {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         this.currentTheme = theme;
+
+        // 更新图标显示逻辑
+        const sunIcon = document.querySelector('.fas.fa-sun');
+        const moonIcon = document.querySelector('.fas.fa-moon');
+        if (sunIcon && moonIcon) {
+            if (theme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
     }
 
     toggleTheme() {

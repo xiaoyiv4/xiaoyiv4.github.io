@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }} - {{ site.name }}</title>
+  <meta name="description" content="{{ description or site.description }}" />
+  <meta name="keywords" content="{{ tags | join(', ') }}" />
+  <meta name="author" content="{{ author or site.author }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ title }}" />
+  <meta property="og:description" content="{{ description or site.description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ site.url }}/posts/{{ meta.fileName | replace('.md', '.html') }}" />
+  {% if ogImage %}
+  <meta property="og:image" content="{{ ogImage }}" />
+  {% endif %}
+
+  <link rel="stylesheet" href="{% if builtResources %}{{ builtResources.article.css }}{% else %}../src/styles/components/article.css{% endif %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  {% if highlightjs %}
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" 
+    id="highlight-light-theme" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" 
+    id="highlight-dark-theme"
+    disabled />
+  {% endif %}
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">{{ site.name }}</a>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="../archives.html">归档</a>
+        <a href="../about.html">关于</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <!-- 文章头部信息 -->
+    <header class="article-header">
+      <h1>{{ title }}</h1>
+      <div class="article-meta">
+        <span class="publish-date">
+          <i class="fas fa-calendar"></i>
+          {{ date | formatDate }}
+        </span>
+        {% if author %}
+        <span class="author">
+          <i class="fas fa-user"></i>
+          {{ author }}
+        </span>
+        {% endif %}
+        {% if tags and tags.length > 0 %}
+        <span class="tags">
+          <i class="fas fa-tags"></i>
+          {% for tag in tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </span>
+        {% endif %}
+        <span class="word-count">
+          <i class="fas fa-file-word"></i>
+          {{ meta.wordCount }} 字
+        </span>
+        <span class="reading-time">
+          <i class="fas fa-clock"></i>
+          约 {{ (meta.wordCount / 300) | round }} 分钟阅读
+        </span>
+      </div>
+    </header>
+
+    <div class="article-content-wrapper">
+      <!-- 主要内容区域 -->
+      <main class="article-main">
+        <article class="article-content">{{ content | safe }}</article>
+
+        <!-- 文章底部信息 -->
+        <footer class="article-footer">
+          <div class="license">
+            <p>
+              <i class="fas fa-copyright"></i>
+              本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议
+            </p>
+          </div>
+
+          <!-- 上一篇/下一篇导航 -->
+          <!-- <div class="article-navigation">
+            {% if prevPost %}
+            <a href="{{ prevPost.url }}" class="nav-link prev">
+              <i class="fas fa-chevron-left"></i>
+              <div class="nav-text">
+                <span>上一篇</span>
+                <strong>{{ prevPost.title }}</strong>
+              </div>
+            </a>
+            {% endif %}
+
+            {% if nextPost %}
+            <a href="{{ nextPost.url }}" class="nav-link next">
+              <div class="nav-text">
+                <span>下一篇</span>
+                <strong>{{ nextPost.title }}</strong>
+              </div>
+              <i class="fas fa-chevron-right"></i>
+            </a>
+            {% endif %}
+          </div> -->
+        </footer>
+      </main>
+      <!-- 侧边栏目录 -->
+      {% if showToc and toc %}
+      <aside class="article-sidebar">
+        <div class="toc-container">
+          <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            目录
+          </h3>
+          <div class="toc-content">{{ toc | safe }}</div>
+        </div>
+      </aside>
+      {% endif %}
+    </div>
+  </div>
+
+  <button class="scroll-to-top-btn" onclick="scrollToTop()" title="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; {{ year }} {{ site.title }}. 由静态博客生成器构建</p>
+      <div class="footer-links">
+        <a href="/">站点地图</a>
+        <a href="/">RSS订阅</a>
+        <a href="https://github.com/xiaoyiv4.github.io" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% if builtResources %}{{ builtResources.article.js }}{% else %}../src/js/article.js{% endif %}" type="module"></script>
+</body>
+
+</html>
