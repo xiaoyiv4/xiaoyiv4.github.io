@@ -18,7 +18,7 @@
   <meta property="og:image" content="{{ ogImage }}" />
   {% endif %}
 
-  <link rel="stylesheet" href="{% if builtResources %}{{ builtResources.article.css }}{% else %}../src/styles/components/article.css{% endif %}" />
+  <link rel="stylesheet" href="{% if builtResources %}{{ builtResources.article.css }}{% else %}/styles/components/article.css{% endif %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   {% if highlightjs %}
@@ -155,7 +155,7 @@
     </div>
   </footer>
 
-  <script src="{% if builtResources %}{{ builtResources.article.js }}{% else %}../src/js/article.js{% endif %}" type="module"></script>
+  <script src="{% if builtResources %}{{ builtResources.article.js }}{% else %}/js/article.js{% endif %}" type="module"></script>
 </body>
 
 </html>

@@ -21,6 +21,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/config/configManager.js regenerate && node scripts/index.js && vite build",
+    "generate": "node scripts/index.js",
+    "sync": "node scripts/utils/syncStatic.js",
     "preview": "vite preview",
     "tree": "node scripts/utils/tree.js"
   },

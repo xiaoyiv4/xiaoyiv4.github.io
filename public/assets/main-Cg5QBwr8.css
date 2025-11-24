@@ -1,0 +1,3 @@
+/* placeholder main bundle -> import article component CSS */
+@import url('/styles/components/article.css');
+/* optionally add other global styles here or copy src/styles/main.css content */
