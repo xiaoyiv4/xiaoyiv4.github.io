@@ -1,0 +1,11 @@
+@import url('./base.css');
+@import url('./light.css');
+@import url('./dark.css');
+
+/* 系统主题检测 */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        /* 当没有设置 data-theme 时，跟随系统偏好 */
+        @import url('./dark.css');
+    }
+}

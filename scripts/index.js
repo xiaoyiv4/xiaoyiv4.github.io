@@ -1,5 +1,6 @@
 import { generateMetadata, generatePosts, PostGenerator } from './generators/index.js';
 import { validateConfig, loadConfig } from './config/index.js';
+import { syncStatic } from './utils/syncStatic.js';
 
 export async function generateBlog() {
     try {
@@ -19,6 +20,17 @@ export async function generateBlog() {
 
         console.log('📊 生成文章元数据...');
         await generateMetadata();
+
+        // 同步静态资源到 public/，保证生成的 HTML 能找到样式/脚本（不会改变主构建流程）
+        // 在 CI 环境或当设置了 SKIP_STATIC_SYNC=1 时跳过（避免在 CI 中重复无用复制）
+        const isCI = !!process.env.CI;
+        const skipSync = process.env.SKIP_STATIC_SYNC === '1' || isCI;
+        if (skipSync) {
+            console.log('ℹ️ 跳过静态资源同步（CI 或 SKIP_STATIC_SYNC=1）');
+        } else {
+            console.log('📁 同步静态资源到 public/...');
+            await syncStatic();
+        }
 
         console.log('🔄 生成 HTML 文章...');
         await generatePosts();
