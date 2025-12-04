@@ -20,7 +20,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/config/configManager.js regenerate && node scripts/index.js && vite build",
+    "build": "node scripts/config/configManager.js regenerate && vite build && node scripts/index.js",
     "generate": "node scripts/index.js",
     "sync": "node scripts/utils/syncStatic.js",
     "preview": "vite preview",

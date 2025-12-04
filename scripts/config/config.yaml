@@ -12,6 +12,8 @@ paths:
   templateDir: "./scripts/templates"  # 模板文件目录
   dist: "./dist"                      # 输出目录
   logs: "./logs"                      # 日志目录
+  # 当 manifest 存在时，是否将生成的 HTML 写入 dist（生产构建）
+  writeToDistWhenManifest: true
 
 # Markdown-It 配置
 markdownConfig:

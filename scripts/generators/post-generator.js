@@ -5,7 +5,7 @@ import MarkdownIt from 'markdown-it';
 import anchor from 'markdown-it-anchor';
 import toc from 'markdown-it-toc-done-right';
 import highlightjs from 'markdown-it-highlightjs';
-import { getPaths, getMarkdownConfig, getTemplateConfig, getFileConfig, pathResolver } from '../config/index.js';
+import { getPaths, getMarkdownConfig, getTemplateConfig, getFileConfig, getConfigValue, pathResolver } from '../config/index.js';
 import { templateManager } from '../templates/index.js';
 
 class PostGenerator {
@@ -32,6 +32,13 @@ class PostGenerator {
         
         // 加载构建资源
         await this.loadBuiltResources();
+
+        // 读取配置开关，决定当发现 manifest 时是否将输出写入 dist
+        try {
+            this.writeToDistWhenManifest = await getConfigValue('paths.writeToDistWhenManifest', true);
+        } catch (err) {
+            this.writeToDistWhenManifest = true;
+        }
 
         // 初始化 Markdown 处理器
         this.md = new MarkdownIt(this.markdownConfig.options);
@@ -111,9 +118,21 @@ class PostGenerator {
      */
     async loadBuiltResources() {
         try {
-            const manifestPath = path.join(process.cwd(), 'dist', '.vite', 'manifest.json');
-            
-            if (!await pathResolver.pathExists(manifestPath)) {
+            // 尝试查找常见的 manifest 路径，优先使用 dist/manifest.json
+            const manifestCandidates = [
+                path.join(process.cwd(), 'dist', 'manifest.json'),
+                path.join(process.cwd(), 'dist', '.vite', 'manifest.json')
+            ];
+
+            let manifestPath = null;
+            for (const p of manifestCandidates) {
+                if (await pathResolver.pathExists(p)) {
+                    manifestPath = p;
+                    break;
+                }
+            }
+
+            if (!manifestPath) {
                 console.warn('⚠️  manifest.json 不存在，使用开发环境路径');
                 this.builtResources = {
                     main: {
@@ -125,9 +144,11 @@ class PostGenerator {
                         js: 'src/js/article.js'
                     }
                 };
+                this.manifestFound = false;
                 return;
             }
 
+            this.manifestFound = true;
             const manifestContent = await fs.readFile(manifestPath, 'utf-8');
             const manifest = JSON.parse(manifestContent);
 
@@ -173,6 +194,7 @@ class PostGenerator {
                     js: 'src/js/article.js'
                 }
             };
+            this.manifestFound = false;
         }
     }
 
@@ -302,7 +324,16 @@ class PostGenerator {
         try {
             const mdPath = path.join(this.paths.docDir, file);
             const htmlFileName = path.basename(file, '.md') + this.fileConfig.outputExtension;
-            const htmlPath = path.join(this.paths.postDir, htmlFileName);
+            // 根据是否存在 manifest 决定输出目录：
+            // - 如果 manifest 存在（说明 vite 已经构建并生成了 assets），将 HTML 写入 dist/posts
+            // - 否则（开发模式）写入配置中的 postDir（通常是 public/posts）
+            let outputDir = this.paths.postDir;
+            if (this.manifestFound && this.paths && this.paths.dist && this.writeToDistWhenManifest) {
+                outputDir = path.join(this.paths.dist, 'posts');
+            }
+            // 确保输出目录存在
+            await fs.mkdir(outputDir, { recursive: true });
+            const htmlPath = path.join(outputDir, htmlFileName);
 
             // 读取 Markdown 内容
             const mdContent = await fs.readFile(mdPath, 'utf-8');
@@ -320,12 +351,14 @@ class PostGenerator {
             // 从元数据获取其他信息
             const postMetadata = this.getPostMetadata(file);
 
+
             // 手动生成TOC
             const tocHtml = this.generateTocFromHeadings(markdownContent);
             console.log(`  生成目录: ${tocHtml.length} 字符`);
 
             // 转换 Markdown 为 HTML
             const htmlContent = this.md.render(markdownContent);
+
 
             // 准备模板数据（合并元数据和 frontmatter，元数据优先级更高）
             const templateData = {
@@ -349,6 +382,10 @@ class PostGenerator {
                     ...(postMetadata.wordCount && { wordCount: postMetadata.wordCount })
                 }
             };
+
+            // 模板数据合并后，保留 metadata 中的 cover（如果有）或 frontmatter 中的 cover
+            // 保持原有行为：metadata 优先级高于 frontmatter
+            // templateData 中已包含 ...frontmatter 和 ...postMetadata，因此不额外覆盖
 
             // 渲染模板
             const fullHtml = await templateManager.render(this.templateConfig.defaultTemplate, templateData);

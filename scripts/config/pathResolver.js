@@ -48,6 +48,16 @@ class PathResolver {
      * 获取配置文件路径
      */
     getConfigPath(filename = 'config.yaml') {
+        // Accept either a key like 'yaml'/'json' or a filename like 'config.yaml'
+        if (!filename) return path.join(this.configDir, 'config.yaml');
+        const key = filename.replace(/^config\.?/, '');
+        if (filename.endsWith('.yaml') || filename.endsWith('.yml') || key === 'yaml') {
+            return this.paths.config.yaml;
+        }
+        if (filename.endsWith('.json') || key === 'json') {
+            return this.paths.config.json;
+        }
+        // fallback to joining
         return this.paths.config[filename] || path.join(this.configDir, filename);
     }
 

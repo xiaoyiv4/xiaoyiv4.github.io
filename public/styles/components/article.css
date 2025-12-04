@@ -336,6 +336,12 @@ body {
     color: #4caf50;
   }
 
+  .copy-code-btn.success {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: rgba(76, 175, 80, 0.4);
+    color: #4caf50;
+  }
+
   /* 亮色模式适配 */
   [data-theme="light"] .copy-code-btn {
     background: rgba(0, 0, 0, 0.05);

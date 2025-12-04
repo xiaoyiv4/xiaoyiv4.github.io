@@ -1,24 +1,25 @@
 import { generateMetadata, generatePosts, PostGenerator } from './generators/index.js';
 import { validateConfig, loadConfig } from './config/index.js';
 import { syncStatic } from './utils/syncStatic.js';
+import logger from './utils/logger.js';
 
 export async function generateBlog() {
     try {
-        console.log('🚀 开始生成博客...');
+        logger.info('🚀 开始生成博客...');
 
         // 首先加载配置
-        console.log('⚙️  加载配置...');
+        logger.info('⚙️  加载配置...');
         await loadConfig();
 
         // 验证配置
-        console.log('🔍 验证配置...');
+        logger.info('🔍 验证配置...');
         const isValid = await validateConfig();
         if (!isValid) {
-            console.error('❌ 配置验证失败，请检查配置文件');
+            logger.error('❌ 配置验证失败，请检查配置文件');
             process.exit(1);
         }
 
-        console.log('📊 生成文章元数据...');
+        logger.info('📊 生成文章元数据...');
         await generateMetadata();
 
         // 同步静态资源到 public/，保证生成的 HTML 能找到样式/脚本（不会改变主构建流程）
@@ -26,20 +27,28 @@ export async function generateBlog() {
         const isCI = !!process.env.CI;
         const skipSync = process.env.SKIP_STATIC_SYNC === '1' || isCI;
         if (skipSync) {
-            console.log('ℹ️ 跳过静态资源同步（CI 或 SKIP_STATIC_SYNC=1）');
+            logger.info('ℹ️ 跳过静态资源同步（CI 或 SKIP_STATIC_SYNC=1）');
         } else {
-            console.log('📁 同步静态资源到 public/...');
+            logger.info('📁 同步静态资源到 public/...');
             await syncStatic();
         }
 
-        console.log('🔄 生成 HTML 文章...');
+        logger.info('🔄 生成 HTML 文章...');
         await generatePosts();
 
-        console.log('🎉 博客生成完成！');
+        logger.info('🎉 博客生成完成！');
     } catch (error) {
-        console.error('❌ 生成过程出错:', error);
+        logger.error('❌ 生成过程出错:', error);
         throw error;
     }
 }
 
 generateBlog();
+// 全局未处理异常捕获，保证友好日志
+process.on('unhandledRejection', (reason, p) => {
+    logger.error('Unhandled Rejection at:', p, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+    logger.error('Uncaught Exception thrown:', err);
+    process.exit(1);
+});
