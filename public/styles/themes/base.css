@@ -1,0 +1,126 @@
+:root {
+    /* ===== 色彩系统 ===== */
+    /* 基础颜色 */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-code: #f1f5f9;
+    --bg-overlay: rgba(255, 255, 255, 0.9);
+    --bg-backdrop: rgba(15, 23, 42, 0.1);
+
+    /* 文本颜色 */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-muted: #94a3b8;
+    --text-inverse: #ffffff;
+    --text-code: #1e293b;
+    --text-link: #3b82f6;
+    --text-link-hover: #2563eb;
+
+    /* 边框颜色 */
+    --border-light: #e2e8f0;
+    --border-medium: #cbd5e1;
+    --border-strong: #94a3b8;
+    --border-focused: #3b82f6;
+
+    /* 语义颜色 */
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #06b6d4;
+
+    /* ===== 排版系统 ===== */
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-serif: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'Fira Code', 'SF Mono', monospace;
+
+    /* 字体大小 */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+
+    /* 字重 */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* 行高 */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+
+    /* ===== 间距系统 ===== */
+    --space-1: 0.25rem;
+    --space-375: 0.375;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+
+    /* ===== 圆角系统 ===== */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* ===== 动画系统 ===== */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+
+    /* ===== 模糊效果 ===== */
+    --blur-sm: blur(4px);
+    --blur-md: blur(8px);
+    --blur-lg: blur(16px);
+
+    /* ===== 布局 ===== */
+    --header-height: 4rem;
+    --sidebar-width: 250px;
+    --max-content-width: 1200px;
+    --container-padding: 1rem;
+
+    /* ===== 阴影 ===== */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+
+    /* ===== 滚动条 ===== */
+    --scrollbar-width: 8px;
+    --scrollbar-height: 8px;
+    --scrollbar-thumb-color: rgba(148, 163, 184, 0.8);
+    --scrollbar-thumb-hover-color: rgba(100, 116, 139, 0.8);
+    --scrollbar-thumb-active-color: rgba(51, 65, 85, 0.8);
+    --scrollbar-border-radius: 4px;
+    --scrollbar-transition: background 0.2s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: var(--leading-normal);
+    transition: all var(--duration-normal) var(--ease-in-out);
+}
