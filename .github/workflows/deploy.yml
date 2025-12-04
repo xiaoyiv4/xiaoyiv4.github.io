@@ -29,6 +29,19 @@ jobs:
       - name: Run build script
         run: npm run build
 
+      - name: Validate generated posts
+        run: |
+          echo "Checking ./dist/posts..."
+          if [ -d "./dist/posts" ] && [ "$(ls -A ./dist/posts | wc -l)" -gt 0 ]; then
+            echo "✅ ./dist/posts exists and contains files"
+            ls -la ./dist/posts
+          else
+            echo "❌ Error: ./dist/posts is missing or empty"
+            echo "Contents of ./dist for debugging:";
+            ls -la ./dist || true
+            exit 1
+          fi
+
       - name: Show dist contents (debug)
         run: ls -la ./dist || echo "dist not found"
 
