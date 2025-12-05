@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>深入理解CSS Grid - </title>
+  <meta name="description" content="本文深入探讨CSS Grid布局的基本概念和实用技巧，帮助前端开发者更好地掌握这一强大布局工具。" />
+  <meta name="keywords" content="CSS, 前端, Grid" />
+  <meta name="author" content="xiaoyiv4" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="深入理解CSS Grid" />
+  <meta property="og:description" content="本文深入探讨CSS Grid布局的基本概念和实用技巧，帮助前端开发者更好地掌握这一强大布局工具。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/posts/post3.html" />
+
+  <link rel="stylesheet" href="/assets/main-Cg5QBwr8.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" 
+    id="highlight-light-theme" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" 
+    id="highlight-dark-theme"
+    disabled />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"></a>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="../archives.html">归档</a>
+        <a href="../about.html">关于</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <!-- 文章头部信息 -->
+    <header class="article-header">
+      <h1>深入理解CSS Grid</h1>
+      <div class="article-meta">
+        <span class="publish-date">
+          <i class="fas fa-calendar"></i>
+          2023/10/3
+        </span>
+        <span class="tags">
+          <i class="fas fa-tags"></i>
+          <span class="tag">CSS</span>
+          <span class="tag">前端</span>
+          <span class="tag">Grid</span>
+        </span>
+        <span class="word-count">
+          <i class="fas fa-file-word"></i>
+          50 字
+        </span>
+        <span class="reading-time">
+          <i class="fas fa-clock"></i>
+          约 0 分钟阅读
+        </span>
+      </div>
+    </header>
+
+    <div class="article-content-wrapper">
+      <!-- 主要内容区域 -->
+      <main class="article-main">
+        <article class="article-content"><p>CSS Grid布局是一个二维布局系统，专门为解决复杂网页布局而设计。</p>
+<h3 id="grid%E5%AE%B9%E5%99%A8%E5%92%8C%E9%A1%B9%E7%9B%AE" tabindex="-1"><a class="header-anchor" href="#grid%E5%AE%B9%E5%99%A8%E5%92%8C%E9%A1%B9%E7%9B%AE"><span>Grid容器和项目</span></a></h3>
+<p>要使用Grid布局，首先需要将一个元素设置为Grid容器：</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">display</span>: grid;
+  <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+  <span class="hljs-attribute">grid-gap</span>: <span class="hljs-number">10px</span>;
+}
+</code></pre>
+<h3 id="%E7%BD%91%E6%A0%BC%E7%BA%BF%E5%AE%9A%E4%BD%8D" tabindex="-1"><a class="header-anchor" href="#%E7%BD%91%E6%A0%BC%E7%BA%BF%E5%AE%9A%E4%BD%8D"><span>网格线定位</span></a></h3>
+<p>可以使用网格线来定位Grid项目：</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.item</span> {
+  <span class="hljs-attribute">grid-column</span>: <span class="hljs-number">1</span> / <span class="hljs-number">3</span>;
+  <span class="hljs-attribute">grid-row</span>: <span class="hljs-number">1</span>;
+}
+</code></pre>
+<h3 id="%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1" tabindex="-1"><a class="header-anchor" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span>响应式设计</span></a></h3>
+<p>Grid布局与媒体查询结合，可以轻松创建响应式设计：</p>
+<pre><code class="hljs language-css"><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.container</span> {
+    <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr;
+  }
+}
+</code></pre>
+<p>CSS Grid布局为网页设计带来了前所未有的灵活性和控制力。</p>
+</article>
+
+        <!-- 文章底部信息 -->
+        <footer class="article-footer">
+          <div class="license">
+            <p>
+              <i class="fas fa-copyright"></i>
+              本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议
+            </p>
+          </div>
+
+          <!-- 上一篇/下一篇导航 -->
+          <!-- <div class="article-navigation">
+
+          </div> -->
+        </footer>
+      </main>
+      <!-- 侧边栏目录 -->
+      <aside class="article-sidebar">
+        <div class="toc-container">
+          <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            目录
+          </h3>
+          <div class="toc-content"><nav class="table-of-contents">
+<ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><a href="#grid%E5%AE%B9%E5%99%A8%E5%92%8C%E9%A1%B9%E7%9B%AE">Grid容器和项目</a></li>
+<li><a href="#%E7%BD%91%E6%A0%BC%E7%BA%BF%E5%AE%9A%E4%BD%8D">网格线定位</a></li>
+<li><a href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1">响应式设计</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <button class="scroll-to-top-btn" onclick="scrollToTop()" title="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 轻量博客. 由静态博客生成器构建</p>
+      <div class="footer-links">
+        <a href="/">站点地图</a>
+        <a href="/">RSS订阅</a>
+        <a href="https://github.com/xiaoyiv4.github.io" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/article-C3gGXw-i.js" type="module"></script>
+</body>
+
+</html>

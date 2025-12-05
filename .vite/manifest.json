@@ -1,0 +1,17 @@
+{
+  "index.html": {
+    "file": "assets/main-C_W2F1cT.js",
+    "name": "main",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/main-Cg5QBwr8.css"
+    ]
+  },
+  "src/js/article.js": {
+    "file": "assets/article-C3gGXw-i.js",
+    "name": "article",
+    "src": "src/js/article.js",
+    "isEntry": true
+  }
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript 编程基础 - </title>
+  <meta name="description" content="JavaScript 编程基础" />
+  <meta name="keywords" content="JavaScript, 编程, 基础" />
+  <meta name="author" content="xiaoyiv4" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JavaScript 编程基础" />
+  <meta property="og:description" content="JavaScript 编程基础" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/posts/post2.html" />
+
+  <link rel="stylesheet" href="/assets/main-Cg5QBwr8.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" 
+    id="highlight-light-theme" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" 
+    id="highlight-dark-theme"
+    disabled />
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"></a>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="../archives.html">归档</a>
+        <a href="../about.html">关于</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <!-- 文章头部信息 -->
+    <header class="article-header">
+      <h1>JavaScript 编程基础</h1>
+      <div class="article-meta">
+        <span class="publish-date">
+          <i class="fas fa-calendar"></i>
+          2025/12/5
+        </span>
+        <span class="tags">
+          <i class="fas fa-tags"></i>
+          <span class="tag">JavaScript</span>
+          <span class="tag">编程</span>
+          <span class="tag">基础</span>
+        </span>
+        <span class="word-count">
+          <i class="fas fa-file-word"></i>
+          201 字
+        </span>
+        <span class="reading-time">
+          <i class="fas fa-clock"></i>
+          约 1 分钟阅读
+        </span>
+      </div>
+    </header>
+
+    <div class="article-content-wrapper">
+      <!-- 主要内容区域 -->
+      <main class="article-main">
+        <article class="article-content"><ol>
+<li>JavaScript 简介<br>
+JavaScript 是一种广泛使用的编程语言，主要用于实现网页的动态功能。</li>
+<li>基本语法<br>
+以下是 JavaScript 的一些基本语法示例：<br>
+2.1 变量<br>
+使用 <code>var</code>、<code>let</code> 或 <code>const</code> 声明变量：</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> message = <span class="hljs-string">&quot;Hello, World!&quot;</span>;
+<span class="hljs-keyword">const</span> number = <span class="hljs-number">42</span>;
+</code></pre>
+<p>2.2 数据类型<br>
+JavaScript 支持多种数据类型，包括字符串、数字、布尔值等：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> str = <span class="hljs-string">&quot;字符串&quot;</span>;
+<span class="hljs-keyword">let</span> num = <span class="hljs-number">123</span>;
+<span class="hljs-keyword">let</span> bool = <span class="hljs-literal">true</span>;
+</code></pre>
+<p>2.3 条件语句<br>
+使用 <code>if</code>、<code>else if</code> 和 <code>else</code> 进行条件判断：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;正数&quot;</span>);
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">0</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;负数&quot;</span>);
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;零&quot;</span>);
+}
+</code></pre>
+<p>2.4 循环<br>
+使用 <code>for</code> 和 <code>while</code> 循环：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);
+}
+
+<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span> (j &lt; <span class="hljs-number">5</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(j);
+  j++;
+}
+</code></pre>
+<p>2.5 函数<br>
+定义和调用函数：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello, &quot;</span> + name + <span class="hljs-string">&quot;!&quot;</span>;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">greet</span>(<span class="hljs-string">&quot;Alice&quot;</span>));
+</code></pre>
+<ol start="3">
+<li>对象<br>
+JavaScript 中的对象是键值对的集合：</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> person = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Bob&quot;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">30</span>,
+  <span class="hljs-attr">sayHello</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Hello, my name is &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);
+  }
+};
+
+person.<span class="hljs-title function_">sayHello</span>();
+</code></pre>
+<ol start="4">
+<li>数组<br>
+数组用于存储多个值：</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> fruits = [<span class="hljs-string">&quot;苹果&quot;</span>, <span class="hljs-string">&quot;香蕉&quot;</span>, <span class="hljs-string">&quot;橙子&quot;</span>];
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(fruits[<span class="hljs-number">0</span>]); <span class="hljs-comment">// 输出 &quot;苹果&quot;</span>
+
+fruits.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;葡萄&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(fruits); <span class="hljs-comment">// 输出 [&quot;苹果&quot;, &quot;香蕉&quot;, &quot;橙子&quot;, &quot;葡萄&quot;]</span>
+</code></pre>
+<ol start="5">
+<li>DOM 操作<br>
+通过 JavaScript 操作网页的 DOM 元素：</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">let</span> header = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;header&quot;</span>);
+header.<span class="hljs-property">style</span>.<span class="hljs-property">color</span> = <span class="hljs-string">&quot;blue&quot;</span>;
+
+<span class="hljs-keyword">let</span> newElement = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;p&quot;</span>);
+newElement.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;这是一个新的段落&quot;</span>;
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(newElement);
+</code></pre>
+</article>
+
+        <!-- 文章底部信息 -->
+        <footer class="article-footer">
+          <div class="license">
+            <p>
+              <i class="fas fa-copyright"></i>
+              本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议
+            </p>
+          </div>
+
+          <!-- 上一篇/下一篇导航 -->
+          <!-- <div class="article-navigation">
+
+          </div> -->
+        </footer>
+      </main>
+      <!-- 侧边栏目录 -->
+    </div>
+  </div>
+
+  <button class="scroll-to-top-btn" onclick="scrollToTop()" title="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 轻量博客. 由静态博客生成器构建</p>
+      <div class="footer-links">
+        <a href="/">站点地图</a>
+        <a href="/">RSS订阅</a>
+        <a href="https://github.com/xiaoyiv4.github.io" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/article-C3gGXw-i.js" type="module"></script>
+</body>
+
+</html>
